@@ -2,26 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class microphoneMngr : MonoBehaviour {
+public class microphoneMngr : baseMngr<microphoneMngr>{
 
 	string _microphone;
 	public AudioSource _audio;
 	MicrophoneState _state;
-	static microphoneMngr _instance;
 
-	public static microphoneMngr instance {
-		get{
-			if (_instance == null) {
-				_instance = GameObject.Instantiate<microphoneMngr>(Resources.Load<microphoneMngr>("microphoneMngr"));
-				_instance.name = "#microphoneMngr";
-			}
-			return _instance;
-		}
-		private set{
-			instance = value;
-		}
-	}
-		
 	enum MicrophoneState{
 		Off,
 		Initialized,
