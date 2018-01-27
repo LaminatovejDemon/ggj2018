@@ -31,8 +31,9 @@ public class homoMngr : baseMngr<homoMngr> {
 		for (int i = 0; i < _homoCount; ++i) {
 			int realIndex_ = (i + from_) % _homoCount;
 
-			if (_homoInstance [realIndex_].State () != homoPacketus.state.Dead
-				&& _homoInstance[realIndex_].State() != homoPacketus.state.Attack) {
+			if (_homoInstance [realIndex_].State () == homoPacketus.state.Alive
+				|| _homoInstance[realIndex_].State() == homoPacketus.state.Idling
+				|| _homoInstance[realIndex_].State() == homoPacketus.state.Rush) {
 				_homoInstance [realIndex_].Attack (target);
 				return;
 			}
