@@ -27,6 +27,7 @@ public class BirdScrp : MonoBehaviour {
 
 	public void Die(){
 		Debug.Log ("bird is dying");
+        transform.parent = null;
 		//TODO
 	}
 
