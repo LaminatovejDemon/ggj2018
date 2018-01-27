@@ -11,7 +11,10 @@ public class BirdScrp : MonoBehaviour {
     homoPacketus victim;
     float timeStartedAttack;
     bool grabVictim = false;
-    int startingCompleteLineNo;
+    public GameObject[] _exclamationMarks = new GameObject[3];
+    int startingCompleteLineNo = -1;
+    int completeNo = 0;
+    int difComplete;
 
 	void Start () {
         animator = GetComponent<Animator>();
@@ -20,7 +23,9 @@ public class BirdScrp : MonoBehaviour {
         timer = Time.time;
         swapTime = Random.Range(5.0f, 9.0f);
         desendSpeed = Random.Range(0.025f, 0.1f);
-        startingCompleteLineNo = lineMngr.instance.completeNo;
+        for (int i = 0; i < 3; ++i) {
+            _exclamationMarks[i].SetActive(false);
+        }
     }
     void increase() {
         if (animator.speed < speedSwim)
@@ -110,24 +115,50 @@ public class BirdScrp : MonoBehaviour {
     }
 
     void holdVictim() {
-        if (timeStartedAttack + 0.2f < Time.time) {
+        if (timeStartedAttack + 0.5f < Time.time) {
             victim.transform.position = gameObject.transform.position;
+            victim.GetComponent<Animator>().SetTrigger("victim");
+            victim.Die();
+            Debug.Log("holding");
         }
     }
-	
+
+    void drawExlanations() {
+        difComplete = completeNo - startingCompleteLineNo;
+        if (difComplete == 3) {
+            _exclamationMarks[0].SetActive(true);
+            _exclamationMarks[1].SetActive(true);
+            _exclamationMarks[2].SetActive(true);
+        }
+        else if (difComplete == 2)
+        {
+            _exclamationMarks[0].SetActive(true);
+            _exclamationMarks[1].SetActive(true);
+        }
+        if (difComplete == 1)
+        {
+            _exclamationMarks[0].SetActive(true);
+        }
+    }
 	void Update () {
+        if (startingCompleteLineNo < 0) startingCompleteLineNo = lineMngr.instance.completeNo;
+
         idle();
         swap();
-        if (startingCompleteLineNo + 3 >= lineMngr.instance.completeNo)
+        completeNo = lineMngr.instance.completeNo;
+        //Debug.Log("starting" + startingCompleteLineNo + "    new" + completeNo);
+        if (startingCompleteLineNo <= completeNo)
         {
             if (!grabVictim)
             {
-                capture();
+               capture();
             }
             else if (victim != null)
             {
                 holdVictim();
             }
         }
+        drawExlanations();
+
 	}
 }
