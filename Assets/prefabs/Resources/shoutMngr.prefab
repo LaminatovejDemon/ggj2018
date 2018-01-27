@@ -9,47 +9,51 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1043699747602676}
+  m_RootGameObject: {fileID: 1959220523209732}
   m_IsPrefabParent: 1
---- !u!1 &1043699747602676
+--- !u!1 &1959220523209732
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4496849871596470}
-  - component: {fileID: 114428816070975766}
+  - component: {fileID: 4913544338815608}
+  - component: {fileID: 114077706793826970}
   m_Layer: 0
-  m_Name: groundMngr
+  m_Name: shoutMngr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4496849871596470
+--- !u!4 &4913544338815608
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1043699747602676}
+  m_GameObject: {fileID: 1959220523209732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7.552, y: -2.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114428816070975766
+--- !u!114 &114077706793826970
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1043699747602676}
+  m_GameObject: {fileID: 1959220523209732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917b3b5284b9e4c4aa9e83643223f448, type: 3}
+  m_Script: {fileID: 11500000, guid: 42025ec85770b4b96baf8d24eaf73969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundTemplate: {fileID: 114213504955545042, guid: f4c48589a31bf43c39b678a3234dd643,
+  _segmentCount: 10
+  _segmentPrefab: {fileID: 1777154943445088, guid: d6919d9306b5043fa8542c862e20fe34,
     type: 2}
+  _segmentGap: 0.1
+  _activeColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.134}
+  _inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.085}
