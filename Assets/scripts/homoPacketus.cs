@@ -110,6 +110,9 @@ public class homoPacketus : MonoBehaviour {
 			interpWhat.transform.position = interpWhere.transform.position;
 			interpWhat.transform.parent = interpWhere.transform;
 			interpEnabled = false;
+            _spear.transform.parent = _spearTemplate.transform;
+            _spear.gameObject.SetActive(false);
+            _spearTemplate.gameObject.SetActive(true);
 			interpWhere.Die ();
 			return;
 		} else {

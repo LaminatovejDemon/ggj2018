@@ -24,6 +24,9 @@ public class BirdScrp : MonoBehaviour {
             animator.speed = animator.speed + 0.01f;
         }
     }
+    public void capture(){
+        
+        }
 
 	public void Die(){
         animator.SetTrigger("die");
