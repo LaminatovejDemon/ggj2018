@@ -25,7 +25,7 @@ public class homoMngr : baseMngr<homoMngr> {
 		AssignCameraLink ();
 	}
 
-	public void Attack(GameObject target){
+	public void Attack(BirdScrp target){
 		int from_ = Random.Range (0, _homoCount);
 
 		for (int i = 0; i < _homoCount; ++i) {

@@ -20,7 +20,8 @@ public class homoPacketus : MonoBehaviour {
 	float _upperBound = 0.6f;
 	public GameObject _spearTemplate;
 	GameObject _spear;
-	GameObject _target;
+	BirdScrp _target;
+	bool _throwPull = false;
 
 	public void SetBounds(float lower, float upper){
 		_lowerBound = lower;
@@ -41,10 +42,13 @@ public class homoPacketus : MonoBehaviour {
 		_nextIdleTimestamp = Random.Range (0.5f, 0.7f);
 		_verticalPosition = transform.position.y;
 		_spear = GameObject.Instantiate (_spearTemplate);
+		_spear.transform.parent = _spearTemplate.transform;
+		_spear.transform.localScale = Vector3.one;
+		_spear.transform.parent = _spearTemplate.transform.parent;
 		_spear.SetActive (false);
 	}
 
-	public void Attack(GameObject target){
+	public void Attack(BirdScrp target){
 		if (_state != state.Dead) {
 			GetComponent<Animator> ().SetTrigger ("throw");
 			_state = state.Attack;
@@ -61,18 +65,26 @@ public class homoPacketus : MonoBehaviour {
 		_state = state.Dead;
 	}
 
-	public void OnThrow(){
+	public void OnThrowPull(){
+		_spear.transform.parent = null;
 		_spear.transform.position = _spearTemplate.transform.position;
 		_spear.transform.rotation = _spearTemplate.transform.rotation;
-		Interpolate (_spear, _target, 0.5f);
+		_spear.SetActive (true);
+		_spearTemplate.SetActive (false);
+		_throwPull = true;
 	}
 
+	public void OnThrowRelease(){
+		Interpolate (_spear, _target, 10.0f);
+		_throwPull = false;
+	}
 
-	GameObject interpWhat, interpWhere;
+	GameObject interpWhat;
+	BirdScrp interpWhere;
 	float interpSpeed;
 	bool interpEnabled;
 
-	void Interpolate(GameObject what, GameObject target, float speed){
+	void Interpolate(GameObject what, BirdScrp target, float speed){
 		interpEnabled = true;
 		interpWhat = what;
 		interpWhere = target;
@@ -85,23 +97,43 @@ public class homoPacketus : MonoBehaviour {
 		}
 
 		Vector3 currentVector_ = (interpWhere.transform.position - interpWhat.transform.position).normalized;
-		Vector3 step_ = currentVector_ * interpSpeed;
+		Vector3 step_ = currentVector_ * interpSpeed * Time.deltaTime;
 		Vector3 plannedVector_ = (interpWhere.transform.position - (interpWhat.transform.position + step_)).normalized;
 
 		if (Vector3.Dot (currentVector_, plannedVector_) < 0) {
 			interpWhat.transform.position = interpWhere.transform.position;
 			interpWhat.transform.parent = interpWhere.transform;
 			interpEnabled = false;
-			Debug.Log ("Hit");
+			interpWhere.Die ();
 			return;
 		} else {
 			interpWhat.transform.position += step_;
+			HomingSpear ();
 		}
+	}
+
+	void HomingSpear(){
+		Vector3 differnce_ = (_target.transform.position - _spear.transform.position);
+		differnce_.z = 0;
+		float bak_ = differnce_.y;
+		differnce_.y = -differnce_.x;
+		differnce_.x = bak_;
+	
+		_spear.transform.rotation = Quaternion.LookRotation (differnce_.normalized);
+	}
+
+	void UpdateThrowPull(){
+		if (!_throwPull) {
+			return;
+		}
+		_spear.transform.position = _spearTemplate.transform.position;
+		HomingSpear ();
 	}
 		
 	// Update is called once per frame
 	void Update () {
 		UpdateInterpolate ();
+		UpdateThrowPull ();
 //		if ( _state == state.Attack && GetComponent<Animator>()
 
 		if (_state == state.Alive && homoMngr.instance.AnyoneWalking(this) ) {

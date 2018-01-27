@@ -15,7 +15,6 @@ public class BirdScrp : MonoBehaviour {
         animator.speed = 0.4f;
         timer = Time.time;
         swapTime = Random.Range(5.0f, 9.0f);
-        Debug.Log("" + timer);
     }
     void increase() {
         if (animator.speed < speedSwim)
@@ -24,10 +23,15 @@ public class BirdScrp : MonoBehaviour {
             animator.speed = animator.speed + 0.01f;
         }
     }
+
+	public void Die(){
+		Debug.Log ("bird is dying");
+		//TODO
+	}
+
     void decrease() {
         if (animator.speed > speedDrift)
         {
-
             animator.speed = animator.speed - 0.01f;
         }
     }
@@ -59,8 +63,6 @@ public class BirdScrp : MonoBehaviour {
                 timer = Time.time;
                 swapTime = Random.Range(1.0f, 4.0f);
                 drift = false;
-                Debug.Log("drift");
-
             }
            
 
@@ -76,7 +78,6 @@ public class BirdScrp : MonoBehaviour {
                 timer = Time.time;
                 swapTime = Random.Range(2.0f, 5.0f);
                 drift = true;
-                Debug.Log("swim");
             }
             
 

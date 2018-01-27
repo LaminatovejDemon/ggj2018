@@ -5,8 +5,8 @@ using UnityEngine;
 public class enemyMngr : baseMngr<enemyMngr>
 {
 
-    public GameObject enemyTemplate;
-    GameObject[] enemyList;
+	public BirdScrp enemyTemplate;
+	BirdScrp[] enemyList;
     int enemyOnScreen = 0;
 
 	void Initialise(){
@@ -14,7 +14,7 @@ public class enemyMngr : baseMngr<enemyMngr>
 			return;
 		}
 
-		enemyList = new GameObject[10];
+		enemyList = new BirdScrp[10];
 		for (int i = 0; i < 10; ++i)
 		{
 			enemyList[i] = null;
@@ -31,7 +31,7 @@ public class enemyMngr : baseMngr<enemyMngr>
             {
                 if (enemyList[i] == null)
                 {
-                    enemyList[i] = GameObject.Instantiate(enemyTemplate);
+					enemyList[i] = GameObject.Instantiate(enemyTemplate).GetComponent<BirdScrp>();
 					enemyList [i].transform.parent = Camera.main.transform;
 					enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * posX).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.8f).y, -10);
                     enemyOnScreen++;
@@ -41,7 +41,7 @@ public class enemyMngr : baseMngr<enemyMngr>
         }
     }
 
-	public GameObject TestEnemy(float startpoint, float endPoint) {
+	public BirdScrp TestEnemy(float startpoint, float endPoint) {
 		Initialise ();
 
         for (int i = 0; i < 10; i++)
@@ -49,7 +49,6 @@ public class enemyMngr : baseMngr<enemyMngr>
 			if (enemyList [i] != null) {
 				float posX_ = Camera.main.WorldToViewportPoint (enemyList [i].transform.position).x;
 				if (posX_ > startpoint && posX_ < endPoint) {
-					Destroy (enemyList [i], 0.5f);
 					return enemyList[i];
 				} 
 			}

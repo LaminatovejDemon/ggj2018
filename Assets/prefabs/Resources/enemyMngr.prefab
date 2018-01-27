@@ -51,5 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c870d298229c3498cc4a550a3286f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTemplate: {fileID: 1978332613522280, guid: 5024168b6a32dae4893f3c87c837eeaa,
+  enemyTemplate: {fileID: 114766876849974762, guid: 5024168b6a32dae4893f3c87c837eeaa,
     type: 2}
