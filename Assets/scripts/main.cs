@@ -5,6 +5,6 @@ using UnityEngine;
 public class main : MonoBehaviour {
 
 	void Update () {
-		Debug.Log ("Val: " + microphoneMngr.instance.GetMicrophoneValue ());
+		//Debug.Log ("Val: " + microphoneMngr.instance.GetMicrophoneValue ());
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class microphoneMngr : baseMngr<microphoneMngr>{
-
+    public int samples = 256;
 	string _microphone;
 	public AudioSource _audio;
 	MicrophoneState _state;
@@ -56,13 +56,13 @@ public class microphoneMngr : baseMngr<microphoneMngr>{
 			return 0;
 		}
 
-		float[] data = new float[735];
+		float[] data = new float[samples];
 		_audio.GetOutputData (data, 0);
 		ArrayList _array = new ArrayList ();
-		for (int i = 0; i < 735; ++i) {
+		for (int i = 0; i < samples; ++i) {
 			_array.Add(Mathf.Abs(data[i]));
 		}
 		_array.Sort();
-		return (float)_array [735 / 2];
+		return (float)_array [samples / 2];
 	}
 }
