@@ -13,7 +13,7 @@ public class SoundLine : MonoBehaviour {
     public GameObject template;
 
     float target = -0f;
-    float increamentSpeed = 0.5f;
+    float increamentSpeed = 0.25f;
     float oldPosition;
     
 	void Start () {
@@ -35,7 +35,7 @@ public class SoundLine : MonoBehaviour {
 
     void Update () {
 
-        target = (microphoneMngr.instance.GetMicrophoneValue() * 350.0f)-2;
+        target = (microphoneMngr.instance.GetMicrophoneValue() * 500.0f)-2;
         if (frameLine > LineCubeNom - increamentPerFrame) frameLine = 0;
         if (target > 2)
         {
@@ -44,7 +44,7 @@ public class SoundLine : MonoBehaviour {
             Debug.Log("" + maxSoundLocation);
         }
         
-        increamentPerFrame = (int)(200 * Time.deltaTime);
+        increamentPerFrame = (int)(250 * Time.deltaTime);
         for (int i = 0; i < increamentPerFrame; ++i)
         {
             
