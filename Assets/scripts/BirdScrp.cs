@@ -26,6 +26,7 @@ public class BirdScrp : MonoBehaviour {
     }
 
 	public void Die(){
+        animator.SetTrigger("die");
 		Debug.Log ("bird is dying");
         transform.parent = null;
 		//TODO
