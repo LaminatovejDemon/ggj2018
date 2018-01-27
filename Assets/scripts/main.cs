@@ -5,7 +5,10 @@ using UnityEngine;
 public class main : MonoBehaviour {
 
 	void Start(){
-		enemyMngr.instance.create (0.45f);
+        for (int i = 0; i < 3; ++i)
+        {
+            enemyMngr.instance.create(0.05f + (0.3f * i));
+        }
 		lineMngr.instance.Initialise ();
 		homoMngr.instance.Initialise ();
 	}

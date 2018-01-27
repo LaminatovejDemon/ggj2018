@@ -33,7 +33,7 @@ public class enemyMngr : baseMngr<enemyMngr>
                 {
                     enemyList[i] = GameObject.Instantiate(enemyTemplate);
 					enemyList [i].transform.parent = Camera.main.transform;
-					enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * posX).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.8f).y, -10);
+					enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * posX).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
                     enemyOnScreen++;
                     return;
           	     }    
