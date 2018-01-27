@@ -7,7 +7,7 @@ public class microphoneMngr : baseMngr<microphoneMngr>{
 	string _microphone;
 	public AudioSource _audio;
 	MicrophoneState _state;
-
+    float avarange = 0;
 	enum MicrophoneState{
 		Off,
 		Initialized,
@@ -37,7 +37,7 @@ public class microphoneMngr : baseMngr<microphoneMngr>{
 
 		if ( !_audio.isPlaying && Microphone.IsRecording(_microphone) ){
 			if (Microphone.GetPosition (_microphone) == 0) {
-				Debug.Log ("not recording");
+				//Debug.Log ("not recording");
 				return;
 			}
 
@@ -56,14 +56,18 @@ public class microphoneMngr : baseMngr<microphoneMngr>{
 		if (_state != MicrophoneState.Recording) {
 			return 0;
 		}
-
+        avarange = 0;
 		float[] data = new float[samples];
 		_audio.GetOutputData (data, 0);
-		ArrayList _array = new ArrayList ();
+		//ArrayList _array = new ArrayList ();
 		for (int i = 0; i < samples; ++i) {
-			_array.Add(Mathf.Abs(data[i]));
+            avarange += (float)(Mathf.Abs( data[i]));
+			//_array.Add(Mathf.Abs(data[i]));
 		}
-		_array.Sort();
-		return (float)_array [samples / 2];
+        //_array.Sort();
+        avarange = avarange / samples;
+        //Debug.Log("" + avarange);
+		return avarange;
+        
 	}
 }

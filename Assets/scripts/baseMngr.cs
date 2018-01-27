@@ -12,7 +12,7 @@ public class baseMngr<T> : MonoBehaviour
 			
 		get{
 			if (_instance == null) {
-				Debug.Log ("Instatiating " + typeof(T).ToString ());
+				//Debug.Log ("Instatiating " + typeof(T).ToString ());
 				_instance = Object.Instantiate<baseMngr<T>>(Resources.Load<baseMngr<T>>(typeof(T).ToString ()));
 				_instance.name = "#" + typeof(T).ToString ();
 			}
