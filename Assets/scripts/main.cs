@@ -28,5 +28,8 @@ public class main : MonoBehaviour {
 		}
 
 		Camera.main.transform.position += Vector3.right * Time.deltaTime;
+	/*	if (Camera.main.transform.position.x > 10.0f) {
+			Camera.main.transform.position -= 10.0f;
+		}*/
 	}
 }

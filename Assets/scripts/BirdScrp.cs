@@ -11,6 +11,7 @@ public class BirdScrp : MonoBehaviour {
     homoPacketus victim;
     float timeStartedAttack;
     bool grabVictim = false;
+	public GameObject[] _exclamationMarks;
 
 	void Start () {
         animator = GetComponent<Animator>();

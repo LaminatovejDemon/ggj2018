@@ -15,6 +15,9 @@ public class homoMngr : baseMngr<homoMngr> {
 		}
 //		_linkedInstance = null;
 		_homoInstance = new homoPacketus[_homoCount];
+		GameObject container_ = new GameObject ();
+		container_.name = "#homoContaier";
+		container_.transform.position = Vector3.zero;
 
 		for (int i = 0; i < _homoCount; ++i) {
 			_homoInstance [i] = GameObject.Instantiate (_homoTemplate);
