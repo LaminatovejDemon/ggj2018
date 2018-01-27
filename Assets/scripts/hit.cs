@@ -30,10 +30,12 @@ public class hit : MonoBehaviour {
 
 		if (Camera.main.WorldToViewportPoint (transform.position).y > 1.0f) {
 			float start_ = Camera.main.WorldToViewportPoint (transform.position).x;
-			if (!enemyMngr.instance.TestEnemy (start_, start_ + transform.localScale.x * Camera.main.orthographicSize * Camera.main.aspect * 2)) {
+			GameObject target_ = enemyMngr.instance.TestEnemy (start_, start_ + transform.localScale.x * Camera.main.orthographicSize * Camera.main.aspect * 2);
+			if (target_ == null) {
 				_state = state.Flashback;	
 				return;
 			} else {
+				homoMngr.instance.Attack (target_);
 				Reset ();
 				return;
 			}

@@ -41,7 +41,7 @@ public class enemyMngr : baseMngr<enemyMngr>
         }
     }
 
-    public bool TestEnemy(float startpoint, float endPoint) {
+	public GameObject TestEnemy(float startpoint, float endPoint) {
 		Initialise ();
 
         for (int i = 0; i < 10; i++)
@@ -50,11 +50,11 @@ public class enemyMngr : baseMngr<enemyMngr>
 				float posX_ = Camera.main.WorldToViewportPoint (enemyList [i].transform.position).x;
 				if (posX_ > startpoint && posX_ < endPoint) {
 					Destroy (enemyList [i], 0.5f);
-					return true;
+					return enemyList[i];
 				} 
 			}
         }
-		return false;
+		return null;
     }
 
     void Update()
