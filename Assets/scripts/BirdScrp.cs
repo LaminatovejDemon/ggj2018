@@ -7,7 +7,7 @@ public class BirdScrp : MonoBehaviour {
     Animator animator;
     float swapTime, speedDrift, speedSwim, timer;
     bool drift = true;
-
+    float desendSpeed = 0.2f;
 
 	void Start () {
         animator = GetComponent<Animator>();
@@ -15,6 +15,7 @@ public class BirdScrp : MonoBehaviour {
         animator.speed = 0.4f;
         timer = Time.time;
         swapTime = Random.Range(5.0f, 9.0f);
+        desendSpeed = Random.Range(0.025f, 0.1f);
     }
     void increase() {
         if (animator.speed < speedSwim)
@@ -84,11 +85,15 @@ public class BirdScrp : MonoBehaviour {
         }
 
     }
+
+    void desend() {
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - (desendSpeed*Time.deltaTime), gameObject.transform.position.z);
+    }
 	
 	// Update is called once per frame
 	void Update () {
         idle();
         swap();
-      
+        //desend();
 	}
 }
