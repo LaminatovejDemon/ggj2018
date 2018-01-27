@@ -13,6 +13,7 @@ public class SoundLine : MonoBehaviour {
 
     float target = -0f;
     float increamentSpeed = 0.5f;
+    float oldPosition;
     
 	void Start () {
         line = new GameObject[LineCubeNom];
@@ -40,6 +41,7 @@ public class SoundLine : MonoBehaviour {
         increamentPerFrame = (int)(200 * Time.deltaTime);
         for (int i = 0; i < increamentPerFrame; ++i)
         {
+            oldPosition = line[frameLine + i].transform.localPosition.y;
             if (frameLine != 0)
             {
                 if (line[frameLine + i - 1].transform.localPosition.y <= target - (increamentSpeed/2))
@@ -64,8 +66,12 @@ public class SoundLine : MonoBehaviour {
                     line[frameLine + i].transform.localPosition = new Vector3(line[frameLine + i].transform.localPosition.x, line[LineCubeNom - 1].transform.localPosition.y - increamentSpeed, line[frameLine + i].transform.localPosition.z);
 
                 }
+                else line[frameLine + i].transform.localPosition = new Vector3(line[frameLine + i].transform.localPosition.x, line[LineCubeNom - 1].transform.localPosition.y, line[frameLine + i].transform.localPosition.z);
+
             }
-            //else if (line[frameLine + i].transform.position.y <= Camera.main.ViewportToWorldPoint(Vector3.zero).y) increamentSpeed *= -1;
+
+            if (oldPosition == line[frameLine + i].transform.localPosition.y) line[frameLine + i].transform.localPosition = new Vector3(line[frameLine + i].transform.localPosition.x, line[frameLine + i].transform.localPosition.y + 0.001f, line[frameLine + i].transform.localPosition.z);
+
         }
         frameLine += increamentPerFrame;
 	}

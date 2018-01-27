@@ -53,9 +53,10 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\baseMngr.cs" />
      <Compile Include="Assets\scripts\groundMngr.cs" />
+     <Compile Include="Assets\scripts\lineCubeMat.cs" />
      <Compile Include="Assets\scripts\main.cs" />
      <Compile Include="Assets\scripts\microphoneMngr.cs" />
-     <Compile Include="Assets\SoundLine.cs" />
+     <Compile Include="Assets\scripts\SoundLine.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>C:/Users/Asus/Documents/ggj2018/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
