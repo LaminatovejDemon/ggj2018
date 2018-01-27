@@ -117,8 +117,8 @@ public class BirdScrp : MonoBehaviour {
         idle();
         swap();
         if (!grabVictim)
-        {
-            capture();
+        { 
+			capture();
         }
         else holdVictim();
 	}

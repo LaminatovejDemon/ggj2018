@@ -48,7 +48,7 @@ public class homoMngr : baseMngr<homoMngr> {
 			if (_homoInstance [i].State () != homoPacketus.state.Attack &&
 			    _homoInstance [i].State () != homoPacketus.state.Dead)
 			{
-				float distance_ = Mathf.Abs (Camera.main.WorldToViewportPoint (_homoInstance [i].transform.position).y - viewportPosition);
+				float distance_ = Mathf.Abs (Camera.main.WorldToViewportPoint (_homoInstance [i].transform.position).x - viewportPosition);
 				
 				if ( distance_ < tolerance) {
 					return _homoInstance[i];

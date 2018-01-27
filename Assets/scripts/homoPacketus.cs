@@ -168,7 +168,7 @@ public class homoPacketus : MonoBehaviour {
 			CalculateNextIdle ();
 		}
 
-		if (_state == state.Idling && behind ) {
+		if ((_state == state.Alive || _state == state.Idling) &&  behind ) {
 			{
 				GetComponent<Animator> ().SetTrigger ("rush");
 				_state = state.Rush;

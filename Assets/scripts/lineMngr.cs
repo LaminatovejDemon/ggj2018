@@ -80,7 +80,6 @@ public class lineMngr : baseMngr<lineMngr> {
 		
     void Update () {
 		sliderVal = Mathf.Pow(Camera.main.transform.GetComponent<main>().sliderValue, 0.8f)*2.0f + 5;
-        Debug.Log("" + sliderVal);
         strenght = sliderVal;
         target = (microphoneMngr.instance.GetMicrophoneValue() * strenght)-2;
         if (target > 2)
