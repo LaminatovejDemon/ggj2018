@@ -6,14 +6,28 @@ public class groundMngr : baseMngr<groundMngr> {
 
 	public line _groundTemplate;
 
+	public GameObject[] _grassTemplates;
+	int _grassAmount = 150;
+	 GameObject[] _grassInstances;
+
 	line[] _instances;
 	int _instanceCount = 3;
+
+	void InitialiseGrass(){
+		_grassInstances = new GameObject[_grassAmount];
+		for (int i = 0; i < _grassAmount; ++i) {
+			_grassInstances [i] = GameObject.Instantiate (_grassTemplates [Random.Range (0, _grassTemplates.GetLength (0))]);
+			_grassInstances [i].name = "Grass_" + i;
+		}
+	}
 
 	void InitialiseInstances(){
 		if (_instances != null) {
 			return;
 		}
 		_instances = new line[_instanceCount];
+
+		InitialiseGrass ();
 
 		for (int i = 0; i < _instanceCount; ++i) {
 			_instances [i] = GameObject.Instantiate (_groundTemplate).GetComponent<line>();
@@ -25,6 +39,21 @@ public class groundMngr : baseMngr<groundMngr> {
 				_instances [i].transform.position += Vector3.right * _instances [i - 1].GetLength ();
 			}
 			_instances [i].InitialiseVertices(Camera.main.orthographicSize * Camera.main.aspect * 2  + 1);				
+
+			AttachGrass (i);
+		}
+	}
+
+	void AttachGrass(int index){
+		int from_ = index * (_grassAmount / _instanceCount);
+		int to_ = ((index + 1) * (_grassAmount / _instanceCount));
+		for (int i = from_; i < to_; ++i) {
+			_grassInstances [i].transform.parent = _instances [index].transform;
+			_grassInstances [i].transform.localScale = Vector3.one * _grassInstances[i].transform.localScale.x * Random.Range (0.4f, 1.7f);
+			float normalizedValue_ = (i-from_) * _instances [index].GetLength() / (to_ - from_);
+			float distance_ = Random.Range (normalizedValue_ - 0.2f,normalizedValue_ + 0.8f);
+			_grassInstances [i].transform.localPosition = Vector3.right * distance_ + Vector3.up * (_instances[index].transform.localScale.y * 0.98f);
+			_grassInstances [i].transform.localRotation = _grassInstances[i].transform.rotation * Quaternion.AngleAxis (Random.Range (-50, 50), Vector3.up);
 		}
 	}
 		
