@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class backgroundMngr : baseMngr<backgroundMngr> {
 
+	public float _speed = 0.1f;
 	bool _initialised = false;
 
 	public void Initialise(){
@@ -18,6 +19,6 @@ public class backgroundMngr : baseMngr<backgroundMngr> {
 	}
 
 	void Update(){
-		GetComponent<MeshRenderer> ().material.mainTextureOffset = transform.position;
+		GetComponent<MeshRenderer> ().material.mainTextureOffset = transform.position * _speed;
 	}
 }
