@@ -18,10 +18,16 @@ public class shoutMngr : baseMngr<shoutMngr> {
 	public Color _inactiveColor;
 	public Color _hotColor;
 
+	float _segmentSize = 0;
+
 	int _activeIndex = 0;
 
 	void Start(){
 		Initialise ();
+	}
+
+	public float GetSegmentSize(){
+		return _segmentSize;
 	}
 
 	public void Initialise(){
@@ -32,15 +38,17 @@ public class shoutMngr : baseMngr<shoutMngr> {
 		_segment = new GameObject[_segmentCount];
 		_hit = new hit[_segmentCount];
 
+		_segmentSize = Camera.main.orthographicSize * 2 * Camera.main.aspect / _segmentCount - _segmentGap;
+
 		for (int i = 0; i < _segmentCount; ++i) {
 			_segment[i] = GameObject.Instantiate(_segmentPrefab);
-			_segment[i].transform.localScale = new Vector3 (Camera.main.orthographicSize * 2 * Camera.main.aspect / _segmentCount - _segmentGap, Camera.main.orthographicSize * 2, 1);
+			_segment[i].transform.localScale = new Vector3 (_segmentSize, Camera.main.orthographicSize * 2, 1);
 			_segment[i].transform.parent = Camera.main.transform;
 			_segment[i].transform.position = Camera.main.ViewportToWorldPoint (Vector3.zero) + Vector3.right * (_segment [i].transform.localScale.x + _segmentGap) * i + Vector3.back * 1.0f;
 			_segment[i].transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_TintColor", _inactiveColor);
 
 			_hit [i] = GameObject.Instantiate (_hitPrefab).GetComponent<hit> ();
-			_hit[i].transform.localScale = new Vector3 (Camera.main.orthographicSize * 2 * Camera.main.aspect / _segmentCount - _segmentGap, Camera.main.orthographicSize * 0.2f, 1);
+			_hit[i].transform.localScale = new Vector3 (_segmentSize, Camera.main.orthographicSize * 0.2f, 1);
 			_hit[i].transform.parent = Camera.main.transform;
 			_hit[i].transform.position = Camera.main.ViewportToWorldPoint (Vector3.zero) + Vector3.right * (_segment [i].transform.localScale.x + _segmentGap) * i + Vector3.back * 1.1f;
 			_hit[i].transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_TintColor", _inactiveColor);

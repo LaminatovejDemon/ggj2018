@@ -40,6 +40,20 @@ public class homoMngr : baseMngr<homoMngr> {
 		}
 	}
 
+	public homoPacketus AnyoneAround(float viewportPosition){
+
+		float tolerance = shoutMngr.instance.GetSegmentSize () * 0.5f;
+
+		for (int i = 0; i < _homoCount; ++i) {
+			if (_homoInstance [i].State () != homoPacketus.state.Attack &&
+			    _homoInstance [i].State () != homoPacketus.state.Dead && 
+				Mathf.Abs(Camera.main.WorldToViewportPoint(_homoInstance[i].transform.position).y - viewportPosition) < tolerance) {
+				return _homoInstance[i];
+			}
+		}
+		return null;
+	}
+
 	public bool AnyoneWalking(homoPacketus exception){
 		for ( int i = 0; i < _homoCount; ++i ){
 			if (_homoInstance[i] != exception && _homoInstance [i].State () == homoPacketus.state.Alive) {
