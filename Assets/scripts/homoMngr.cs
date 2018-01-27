@@ -42,7 +42,7 @@ public class homoMngr : baseMngr<homoMngr> {
 
 	public homoPacketus AnyoneAround(float viewportPosition){
 
-		float tolerance = shoutMngr.instance.GetSegmentSize () * 0.5f;
+		float tolerance = shoutMngr.instance.GetViewPortSegmentSize () * 0.5f;
 
 		for (int i = 0; i < _homoCount; ++i) {
 			if (_homoInstance [i].State () != homoPacketus.state.Attack &&
