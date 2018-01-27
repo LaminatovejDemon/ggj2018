@@ -13,9 +13,9 @@ public class lineCubeMat : MonoBehaviour {
 
     void Start () {
         mat = GetComponent<Renderer>().material;
-        col = mat.GetColor("_Color");
+        col = mat.GetColor("_TintColor");
         col.a = (byte)trans;
-        mat.SetColor("_Color", col);
+        mat.SetColor("_TintColor", col);
         posY = gameObject.transform.localPosition.y;
         newPos = posY;
        
@@ -32,6 +32,6 @@ public class lineCubeMat : MonoBehaviour {
         else trans-=5;
         if (trans < 5) trans = 0;
         col.a = (byte)trans;
-        mat.SetColor("_Color", col);
+        mat.SetColor("_TintColor", col);
     }
 }

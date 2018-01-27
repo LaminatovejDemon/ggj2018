@@ -42,6 +42,7 @@ public class microphoneMngr : baseMngr<microphoneMngr>{
 			}
 
 			_audio.Play ();
+
 			_state = MicrophoneState.Recording;
 		}
 	}

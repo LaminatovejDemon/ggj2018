@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundLine : MonoBehaviour {
 
-    int LineCubeNom = 1024;
+    int LineCubeNom = 1000;
     int frameLine = 0;
     int increamentPerFrame = 10;
     public float maxSoundLocation;
@@ -35,16 +35,17 @@ public class SoundLine : MonoBehaviour {
 
     void Update () {
 
-        target = (microphoneMngr.instance.GetMicrophoneValue() * 500.0f)-2;
-        if (frameLine > LineCubeNom - increamentPerFrame) frameLine = 0;
+        target = (microphoneMngr.instance.GetMicrophoneValue() * 50.0f)-2;
         if (target > 2)
         {
             target = 2;
             maxSoundLocation = line[frameLine].transform.position.x;
-            Debug.Log("" + maxSoundLocation);
+//            Debug.Log("" + maxSoundLocation);
         }
         
-        increamentPerFrame = (int)(250 * Time.deltaTime);
+		increamentPerFrame = (int)(250 * Time.deltaTime);
+		if (frameLine > LineCubeNom - increamentPerFrame - 1) frameLine = 0;
+
         for (int i = 0; i < increamentPerFrame; ++i)
         {
             
