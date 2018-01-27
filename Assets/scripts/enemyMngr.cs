@@ -2,23 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyMngr : MonoBehaviour
+public class enemyMngr : baseMngr<enemyMngr>
 {
 
     public GameObject enemyTemplate;
     GameObject[] enemyList;
     int enemyOnScreen = 0;
-    void Start()
-    {
-        enemyList = new GameObject[10];
-        for (int i = 0; i < 10; ++i)
-        {
-            enemyList[i] = null;
-        }
-        
-    }
+
+	void Initialise(){
+		if (enemyList != null) {
+			return;
+		}
+
+		enemyList = new GameObject[10];
+		for (int i = 0; i < 10; ++i)
+		{
+			enemyList[i] = null;
+		}
+	}
+
     public void create(float posX)
     {
+		Initialise ();
+
         if (enemyOnScreen < 10)
         {
             for (int i = 0; i < 10; i++)
@@ -26,34 +32,31 @@ public class enemyMngr : MonoBehaviour
                 if (enemyList[i] == null)
                 {
                     enemyList[i] = GameObject.Instantiate(enemyTemplate);
-                    enemyList[i].transform.position = new Vector3(posX, Camera.main.ViewportToWorldPoint(Vector3.one * 1.2f).y, -10);
+					enemyList [i].transform.parent = Camera.main.transform;
+					enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * posX).x, Camera.main.ViewportToWorldPoint(Vector3.one * 1.2f).y, -10);
                     enemyOnScreen++;
                     return;
-                }
-                
+          	     }    
             }
-            
         }
-
     }
-    public void TestEnemy(float startpoint, float endPonit) {
+
+    public bool TestEnemy(float startpoint, float endPoint) {
+		Initialise ();
+
         for (int i = 0; i < 10; i++)
         {
-            if (enemyList[i] == null)
-            {
-                if (enemyList[i].transform.position.x > Camera.main.ViewportToWorldPoint(Vector3.right * startpoint).x
-                    && enemyList[i].transform.position.x < Camera.main.ViewportToWorldPoint(Vector3.right * endPonit).x )
-                {
-                    Destroy(enemyList[i], 0.5f);
-                }
-                
-                
-               
-            }
-
+			if (enemyList [i] != null) {
+				float posX_ = Camera.main.WorldToViewportPoint (enemyList [i].transform.position).x;
+				if (posX_ > startpoint && posX_ < endPoint) {
+					Destroy (enemyList [i], 0.5f);
+					return true;
+				} 
+			}
         }
-
+		return false;
     }
+
     void Update()
     {
         for (int i = 0; i < 10; ++i)
