@@ -8,6 +8,9 @@ public class BirdScrp : MonoBehaviour {
     float swapTime, speedDrift, speedSwim, timer;
     bool drift = true;
     float desendSpeed = 0.2f;
+    homoPacketus victim;
+    float timeStartedAttack;
+    bool grabVictim = false;
 
 	void Start () {
         animator = GetComponent<Animator>();
@@ -24,9 +27,18 @@ public class BirdScrp : MonoBehaviour {
             animator.speed = animator.speed + 0.01f;
         }
     }
-    public void capture(){
-        
+    public void capture()
+    {
+        victim = homoMngr.instance.AnyoneAround(Camera.main.WorldToViewportPoint(gameObject.transform.position).x);
+        if (victim != null)
+        {
+            animator.SetTrigger("attack");
+            timeStartedAttack = Time.time;
+            grabVictim = true;
+            Debug.Log("found victim");
+
         }
+    }
 
 	public void Die(){
         animator.SetTrigger("die");
@@ -94,11 +106,20 @@ public class BirdScrp : MonoBehaviour {
     void desend() {
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - (desendSpeed*Time.deltaTime), gameObject.transform.position.z);
     }
+
+    void holdVictim() {
+        if (timeStartedAttack + 0.2f < Time.time) {
+            victim.transform.position = gameObject.transform.position;
+        }
+    }
 	
-	// Update is called once per frame
 	void Update () {
         idle();
         swap();
-        //desend();
+        if (!grabVictim)
+        {
+            capture();
+        }
+        else holdVictim();
 	}
 }
