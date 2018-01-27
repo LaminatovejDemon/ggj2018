@@ -35,7 +35,7 @@ public class BirdScrp : MonoBehaviour {
             animator.SetTrigger("attack");
             timeStartedAttack = Time.time;
             grabVictim = true;
-            Debug.Log("found victim");
+            Debug.Log("found victim"+ victim.transform.position);
 
         }
     }
