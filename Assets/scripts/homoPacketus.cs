@@ -57,6 +57,7 @@ public class homoPacketus : MonoBehaviour {
 			} else if (target == null) {
 				GetComponent<Animator> ().SetTrigger ("suicide");
 				_state = state.Dead;
+				_spearTemplate.SetActive (true);
 			}
 		}
 	}
@@ -137,6 +138,10 @@ public class homoPacketus : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
+		if (_state == state.Dead) {
+			return;
+		}
+
 		UpdateInterpolate ();
 		UpdateThrowPull ();
 		bool anyoneWalking = homoMngr.instance.AnyoneWalking (this);
