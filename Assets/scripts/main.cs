@@ -5,6 +5,7 @@ using UnityEngine;
 public class main : MonoBehaviour {
 
 	void Update () {
+		backgroundMngr.instance.Initialise ();
 		groundMngr.instance.UpdateVertices();
 	}
 }

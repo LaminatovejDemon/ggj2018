@@ -4,62 +4,27 @@ using UnityEngine;
 
 public class groundMngr : baseMngr<groundMngr> {
 
-	public MeshFilter _groundTemplate;
-	public int _groundWidth = 100;
-	public float _uvScale = 0.1f;
+	public line _groundTemplate;
 
-	MeshFilter[] _instances;
-	int _instanceCount = 2;
-
-	Vector3[] _vertices = null;
-
-	void InitialiseVertices(MeshFilter target){
-
-	
-		if (_vertices == null) {
-			_vertices = new Vector3[_groundWidth * 4];
-		}
-
-		Mesh mesh = target.mesh;
-		int[] indices_ = new int[_groundWidth * 6];
-		Vector2[] uvs_ = new Vector2[_groundWidth * 4];
-		Vector3[] template_ = { new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(1, 0, 0), new Vector3 (1, 1, 0) };
-
-		for (int i = 0; i < _groundWidth * 4; i++ ) {
-			_vertices [i] = template_ [i % 4] + Vector3.right * (int)(i/4);
-			uvs_ [i] = new Vector2(_vertices [i].x * _uvScale, _vertices[i].y * _uvScale);
-		}
-
-		int index_ = 0;
-		for (int i = 0; i < _groundWidth * 4; i+=4 ) {
-			indices_ [index_++] = i;
-			indices_ [index_++] = i+1;
-			indices_ [index_++] = i+2;
-			indices_ [index_++] = i+2;
-			indices_ [index_++] = i+1;
-			indices_ [index_++] = i+3;
-		}
-			
-		mesh.vertices = _vertices;
-		mesh.triangles = indices_;
-		mesh.uv = uvs_;
-		mesh.RecalculateBounds();
-		target.mesh = mesh;
-	}
+	line[] _instances;
+	int _instanceCount = 3;
 
 	void InitialiseInstances(){
 		if (_instances != null) {
 			return;
 		}
-		_instances = new MeshFilter[_instanceCount];
+		_instances = new line[_instanceCount];
 
 		for (int i = 0; i < _instanceCount; ++i) {
-			_instances [i] = GameObject.Instantiate (_groundTemplate).GetComponent<MeshFilter>();
+			_instances [i] = GameObject.Instantiate (_groundTemplate).GetComponent<line>();
 			_instances [i].name = "Ground_" + i;
 			_instances [i].transform.parent = transform;
 
-			InitialiseVertices (_instances [i]);
-			_instances [i].transform.position = Camera.main.WorldToViewportPoint (Vector3.down) + Vector3.left * i * _groundWidth;
+			_instances [i].transform.position = Camera.main.ViewportToWorldPoint (Vector3.zero);
+			if (i > 0) {
+				_instances [i].transform.position += Vector3.right * _instances [i - 1].GetLength ();
+			}
+			_instances [i].InitialiseVertices(Camera.main.orthographicSize * Camera.main.aspect * 2  + 1);				
 		}
 	}
 		
@@ -67,4 +32,43 @@ public class groundMngr : baseMngr<groundMngr> {
 		InitialiseInstances ();
 	}
 
+	void RegenerateGround(int index){
+		int modulatedIndex_ = index - 1 < 0 ? _instances.Length -1 : index - 1;
+		line lastInstance_ = _instances [modulatedIndex_];
+		_instances [index].transform.position = lastInstance_.transform.position + Vector3.right * lastInstance_.GetLength ();
+	}
+
+	void TeleportGroundToViewport(){
+		float viewportMin_ = 1.0f;
+		for (int index = 0; index < _instances.Length; ++index) {
+			viewportMin_ = Mathf.Min(viewportMin_, Camera.main.WorldToViewportPoint (_instances [index].transform.position).x);
+		}
+
+		if (viewportMin_ <= 0) {
+			return;
+		}
+
+		float worldDistance_ = Camera.main.ViewportToWorldPoint (Vector3.right * viewportMin_).x;
+		Debug.Log ("world distance: " + worldDistance_);
+		for (int i = 0; i < _instances.Length; ++i) {
+			_instances [i].transform.position += Vector3.left * worldDistance_;
+		}
+	}
+
+	public void Refresh(){
+		TeleportGroundToViewport ();
+		for (int i = 0; i < _instances.Length; ++i) {
+			ClampGround (i);	
+		}
+	}
+
+	void ClampGround(int index){
+		if (Camera.main.WorldToViewportPoint (_instances[index].transform.position + Vector3.right * _instances[index].GetLength()).x < 0) {
+			RegenerateGround (index);
+		}
+	}
+
+	void Update(){
+		Refresh ();
+	}
 }
