@@ -118,11 +118,16 @@ public class BirdScrp : MonoBehaviour {
 	void Update () {
         idle();
         swap();
-        lineMngr.instance.
-        if (!grabVictim)
-        { 
-			capture();
+        if (startingCompleteLineNo + 3 >= lineMngr.instance.completeNo)
+        {
+            if (!grabVictim)
+            {
+                capture();
+            }
+            else if (victim != null)
+            {
+                holdVictim();
+            }
         }
-        else holdVictim();
 	}
 }

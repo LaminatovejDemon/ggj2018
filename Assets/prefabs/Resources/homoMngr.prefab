@@ -51,6 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd101c2924204065a2ddce5c6065788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _homoCount: 1
+  _homoCount: 3
   _homoTemplate: {fileID: 114354667855694336, guid: 748aa22f4fb954023bebc22c8647e360,
     type: 2}
