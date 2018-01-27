@@ -58,6 +58,6 @@ MonoBehaviour:
     type: 2}
   _segmentGap: 0.1
   _shoutThreshold: 50
-  _activeColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.134}
-  _inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.085}
+  _activeColor: {r: 0.5514706, g: 0.29195502, b: 0.29195502, a: 0.053}
+  _inactiveColor: {r: 0.6691177, g: 0.290279, b: 0.290279, a: 0.085}
   _hotColor: {r: 0.6764706, g: 0.16414359, b: 0.16414359, a: 0.141}

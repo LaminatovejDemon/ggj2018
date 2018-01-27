@@ -11,6 +11,7 @@ public class main : MonoBehaviour {
         }
 		lineMngr.instance.Initialise ();
 		homoMngr.instance.Initialise ();
+		homoMngr.instance.AnyoneAround (0.5f);
 	}
 
 	void Update () {

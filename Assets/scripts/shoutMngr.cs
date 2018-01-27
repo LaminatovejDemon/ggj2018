@@ -26,6 +26,11 @@ public class shoutMngr : baseMngr<shoutMngr> {
 		Initialise ();
 	}
 
+	public float GetViewPortSegmentSize(){
+		Initialise ();
+		return _segmentSize / (Camera.main.orthographicSize * 2 * Camera.main.aspect);
+	}
+
 	public float GetSegmentSize(){
 		return _segmentSize;
 	}
