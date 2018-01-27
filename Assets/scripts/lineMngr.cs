@@ -11,6 +11,7 @@ public class lineMngr : baseMngr<lineMngr> {
     public float maxSoundLocation;
     float strenght = 50;
     float sliderVal;
+    public int completeNo = 0;
     
 
 
@@ -90,8 +91,12 @@ public class lineMngr : baseMngr<lineMngr> {
         }
         
 		increamentPerFrame = (int)(250 * Time.deltaTime);
-		if (frameLine > LineCubeNom - increamentPerFrame - 1) frameLine = 0;
-
+        if (frameLine > LineCubeNom - increamentPerFrame - 1)
+        {
+            frameLine = 0;
+            completeNo++;
+            Debug.Log("" + completeNo);
+        }
 		DecayColors ();
 
         for (int i = 0; i < increamentPerFrame; ++i)

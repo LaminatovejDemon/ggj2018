@@ -11,6 +11,7 @@ public class BirdScrp : MonoBehaviour {
     homoPacketus victim;
     float timeStartedAttack;
     bool grabVictim = false;
+    int startingCompleteLineNo;
 
 	void Start () {
         animator = GetComponent<Animator>();
@@ -19,6 +20,7 @@ public class BirdScrp : MonoBehaviour {
         timer = Time.time;
         swapTime = Random.Range(5.0f, 9.0f);
         desendSpeed = Random.Range(0.025f, 0.1f);
+        startingCompleteLineNo = lineMngr.instance.completeNo;
     }
     void increase() {
         if (animator.speed < speedSwim)
@@ -116,6 +118,7 @@ public class BirdScrp : MonoBehaviour {
 	void Update () {
         idle();
         swap();
+        lineMngr.instance.
         if (!grabVictim)
         { 
 			capture();
