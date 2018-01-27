@@ -7,6 +7,7 @@ public class SoundLine : MonoBehaviour {
     int LineCubeNom = 1024;
     int frameLine = 0;
     int increamentPerFrame = 10;
+    public float maxSoundLocation;
 
     GameObject[] line;
     public GameObject template;
@@ -34,16 +35,22 @@ public class SoundLine : MonoBehaviour {
 
     void Update () {
 
-        target = (microphoneMngr.instance.GetMicrophoneValue() * 500.0f)-2;
-        if (target > 2)target = 2;
-        if (frameLine > LineCubeNom-increamentPerFrame) frameLine = 0;
-        Debug.Log("" + target);
+        target = (microphoneMngr.instance.GetMicrophoneValue() * 350.0f)-2;
+        if (frameLine > LineCubeNom - increamentPerFrame) frameLine = 0;
+        if (target > 2)
+        {
+            target = 2;
+            maxSoundLocation = line[frameLine].transform.position.x;
+            Debug.Log("" + maxSoundLocation);
+        }
+        
         increamentPerFrame = (int)(200 * Time.deltaTime);
         for (int i = 0; i < increamentPerFrame; ++i)
         {
-            oldPosition = line[frameLine + i].transform.localPosition.y;
+            
             if (frameLine != 0)
             {
+                oldPosition = line[frameLine + i].transform.localPosition.y;
                 if (line[frameLine + i - 1].transform.localPosition.y <= target - (increamentSpeed/2))
                 {
                     line[frameLine + i].transform.localPosition = new Vector3(line[frameLine + i].transform.localPosition.x, line[frameLine + i - 1].transform.localPosition.y + increamentSpeed, line[frameLine + i].transform.localPosition.z);
