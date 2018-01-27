@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class lineMngr : baseMngr<lineMngr> {
 
@@ -8,6 +9,10 @@ public class lineMngr : baseMngr<lineMngr> {
     int frameLine = 0;
     int increamentPerFrame = 10;
     public float maxSoundLocation;
+    float strenght = 50;
+    float sliderVal;
+    
+
 
     GameObject[] line;
     public GameObject template;
@@ -21,7 +26,9 @@ public class lineMngr : baseMngr<lineMngr> {
 		if (line != null) {
 			return;
 		}
-
+        sliderVal = Camera.main.transform.GetComponent<main>().sliderValue; 
+       
+       
 		line = new GameObject[LineCubeNom];
 		Vector3 screen = Camera.main.ViewportToWorldPoint(Vector3.zero);
 		float step_ = Camera.main.orthographicSize * Camera.main.aspect / LineCubeNom * 2;
@@ -37,9 +44,7 @@ public class lineMngr : baseMngr<lineMngr> {
 			line[i].transform.parent = container_;
 			line[i].transform.position = screen + Vector3.right * step_ * i;
 			line[i].transform.localPosition = new Vector3(line[i].transform.localPosition.x, target, line[i].transform.localPosition.z);
-			/*			Vector2 scaleBak_ = line [i].transform.localScale;
-			scaleBak_.x = step_;
-			line [i].transform.localScale = scaleBak_;*/
+
 
 		}
 	}
@@ -74,8 +79,10 @@ public class lineMngr : baseMngr<lineMngr> {
 	}
 		
     void Update () {
+        sliderVal = Camera.main.transform.GetComponent<main>().sliderValue;
+        Debug.Log("" + sliderVal);
 
-        target = (microphoneMngr.instance.GetMicrophoneValue() * 50.0f)-2;
+        target = (microphoneMngr.instance.GetMicrophoneValue() * strenght)-2;
         if (target > 2)
         {
             target = 2;

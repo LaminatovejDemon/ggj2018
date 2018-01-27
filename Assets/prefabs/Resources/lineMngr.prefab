@@ -52,4 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSoundLocation: 0
+  slider: {fileID: 0}
   template: {fileID: 1870759264108788, guid: 4ae476cb578de32419ae83d93276bfa9, type: 2}

@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class main : MonoBehaviour {
+
+    public float sliderValue;
+    public Slider slider;
 
 	void Start(){
         for (int i = 0; i < 3; ++i)
@@ -18,6 +22,7 @@ public class main : MonoBehaviour {
 		backgroundMngr.instance.Initialise ();
 		groundMngr.instance.UpdateVertices();
 
+        sliderValue = slider.value;
 
 		if (Input.GetMouseButtonDown (0)) {
 			shoutMngr.instance.TriggerHit ();
