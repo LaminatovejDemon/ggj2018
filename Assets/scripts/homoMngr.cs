@@ -50,7 +50,7 @@ public class homoMngr : baseMngr<homoMngr> {
 	void AssignCameraLink(){
 		if (_linkedInstance != null && _linkedInstance.GetComponent<homoPacketus>().State () == homoPacketus.state.Alive) {
 			return;
-		} else if (_linkedInstance != null && _linkedInstance.GetComponent<homoPacketus>().State ()!= homoPacketus.state.Alive) {
+		} else if (_linkedInstance != null && _linkedInstance.GetComponent<homoPacketus>().State () == homoPacketus.state.Dead) {
 			_linkedInstance.enabled = false;
 		}
 			

@@ -57,7 +57,6 @@ public class shoutMngr : baseMngr<shoutMngr> {
 		_activeIndex = newIndex;
 		_segment [_activeIndex].transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_TintColor", _activeColor);
 
-		//Debug.Log("total Amount is " + _currentAmount);
 		_currentAmount = 0;
 	}
 

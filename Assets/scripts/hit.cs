@@ -11,12 +11,28 @@ public class hit : MonoBehaviour {
 	};
 
 	state _state = state.Ready;
+	bool flashbackImminent = false;
 
 	public float _speed = 1.0f;
 
 	public void Engage(){
 		if (_state == state.Ready) {
 			_state = state.Active;	
+			Test ();
+		}
+	}
+
+	void Test(){
+		float start_ = Camera.main.WorldToViewportPoint (transform.position).x;
+		BirdScrp target_ = enemyMngr.instance.TestEnemy (start_, start_ + transform.localScale.x * Camera.main.orthographicSize * Camera.main.aspect * 2);
+		if (target_ == null) {
+			flashbackImminent = true;
+			homoMngr.instance.Attack (null);
+			return;
+		} else {
+			flashbackImminent = false;
+			homoMngr.instance.Attack (target_);
+			return;
 		}
 	}
 
@@ -28,17 +44,9 @@ public class hit : MonoBehaviour {
 	void HandleActive(){
 		transform.position += Vector3.up * Time.deltaTime * _speed;
 
-		if (Camera.main.WorldToViewportPoint (transform.position).y > 1.0f) {
-			float start_ = Camera.main.WorldToViewportPoint (transform.position).x;
-			BirdScrp target_ = enemyMngr.instance.TestEnemy (start_, start_ + transform.localScale.x * Camera.main.orthographicSize * Camera.main.aspect * 2);
-			if (target_ == null) {
-				_state = state.Flashback;	
-				return;
-			} else {
-				homoMngr.instance.Attack (target_);
-				Reset ();
-				return;
-			}
+		if (Camera.main.WorldToViewportPoint (transform.position).y > 1.0f && flashbackImminent ) {
+			_state = state.Flashback;
+			Reset ();
 		}
 		else if (Camera.main.WorldToViewportPoint (transform.position - transform.localScale).y > 1.0f) {
 			Reset();

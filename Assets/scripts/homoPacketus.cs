@@ -50,9 +50,14 @@ public class homoPacketus : MonoBehaviour {
 
 	public void Attack(BirdScrp target){
 		if (_state != state.Dead) {
-			GetComponent<Animator> ().SetTrigger ("throw");
-			_state = state.Attack;
-			_target = target;
+			if (target != null) {
+				GetComponent<Animator> ().SetTrigger ("throw");
+				_state = state.Attack;
+				_target = target;
+			} else if (target == null) {
+				GetComponent<Animator> ().SetTrigger ("suicide");
+				_state = state.Dead;
+			}
 		}
 	}
 
@@ -134,27 +139,30 @@ public class homoPacketus : MonoBehaviour {
 	void Update () {
 		UpdateInterpolate ();
 		UpdateThrowPull ();
-//		if ( _state == state.Attack && GetComponent<Animator>()
+		bool anyoneWalking = homoMngr.instance.AnyoneWalking (this);
+		_stateDuration += Time.deltaTime;
+		float camX_ = Camera.main.WorldToViewportPoint (transform.position).x;
+		bool behind = camX_ < _lowerBound;
+		bool ahead = camX_ > _upperBound;
+		bool wayahead = camX_ > 0.9f;
 
-		if (_state == state.Alive && homoMngr.instance.AnyoneWalking(this) ) {
-			_stateDuration += Time.deltaTime;
+		if ((_state == state.Alive && anyoneWalking && !behind)) {
 			if (_stateDuration > _nextIdleTimestamp) {
 				GetComponent<Animator> ().SetTrigger ("idle");
 				_state = state.Idling;
 			}
 		}
 	
-		if ((_state == state.Rush && (Camera.main.WorldToViewportPoint (transform.position).x > _upperBound ))
-			|| !homoMngr.instance.AnyoneWalking(this) ) {
+		if ((_state == state.Rush && ahead) || !anyoneWalking ) {
 			_state = state.Alive;
 			GetComponent<Animator>().SetTrigger("walk");
 			CalculateNextIdle ();
 		}
 
-		if (_state == state.Idling ) {
-			if ( Camera.main.WorldToViewportPoint(transform.position).x < _lowerBound ){
-				_state = state.Rush;
+		if (_state == state.Idling && behind ) {
+			{
 				GetComponent<Animator> ().SetTrigger ("rush");
+				_state = state.Rush;
 			}
 		}
 
