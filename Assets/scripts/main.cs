@@ -7,6 +7,7 @@ public class main : MonoBehaviour {
 	void Start(){
 		enemyMngr.instance.create (0.5f);
 		lineMngr.instance.Initialise ();
+		homoMngr.instance.Initialise ();
 	}
 
 	void Update () {
