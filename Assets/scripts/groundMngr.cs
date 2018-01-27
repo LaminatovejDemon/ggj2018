@@ -21,6 +21,11 @@ public class groundMngr : baseMngr<groundMngr> {
 		}
 	}
 
+	public float GetRoundedLength(){
+		InitialiseInstances ();
+		return _instances [0].GetLength ();
+	}
+
 	void InitialiseInstances(){
 		if (_instances != null) {
 			return;

@@ -28,8 +28,12 @@ public class main : MonoBehaviour {
 		}
 
 		Camera.main.transform.position += Vector3.right * Time.deltaTime;
-	/*	if (Camera.main.transform.position.x > 10.0f) {
-			Camera.main.transform.position -= 10.0f;
-		}*/
+
+		float roundedDistance_ = groundMngr.instance.GetRoundedLength ();
+		if (Camera.main.transform.position.x > roundedDistance_ * 3.0f) {
+			Camera.main.transform.position += Vector3.left * roundedDistance_;
+			homoMngr.instance._container.transform.position += Vector3.left * roundedDistance_;
+		}
+
 	}
 }

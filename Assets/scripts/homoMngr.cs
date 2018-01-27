@@ -7,6 +7,7 @@ public class homoMngr : baseMngr<homoMngr> {
 	public int _homoCount = 10;
 	public homoPacketus _homoTemplate;
 	homoPacketus[] _homoInstance;
+	public GameObject _container;
 //	cameraLink _linkedInstance;
 
 	public void Initialise(){
@@ -15,15 +16,17 @@ public class homoMngr : baseMngr<homoMngr> {
 		}
 //		_linkedInstance = null;
 		_homoInstance = new homoPacketus[_homoCount];
-		GameObject container_ = new GameObject ();
-		container_.name = "#homoContaier";
-		container_.transform.position = Vector3.zero;
+		_container = new GameObject ();
+		_container.name = "#homoContaier";
+		_container.transform.position = Vector3.zero;
 
 		for (int i = 0; i < _homoCount; ++i) {
 			_homoInstance [i] = GameObject.Instantiate (_homoTemplate);
 			_homoInstance [i].transform.position += Vector3.left * (i - _homoCount*0.5f);
 			_homoInstance [i].SetBounds (0.3f / _homoCount * i + 0.2f, 0.3f / _homoCount * i + 0.5f);
 			_homoInstance [i].name = "HomoPacketus_" + i;
+			_homoInstance [i].transform.parent = _container.transform;
+
 		}
 //		AssignCameraLink ();
 	}
