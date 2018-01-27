@@ -7,13 +7,13 @@ public class homoMngr : baseMngr<homoMngr> {
 	public int _homoCount = 10;
 	public homoPacketus _homoTemplate;
 	homoPacketus[] _homoInstance;
-	cameraLink _linkedInstance;
+//	cameraLink _linkedInstance;
 
 	public void Initialise(){
 		if (_homoInstance != null) {
 			return;
 		}
-		_linkedInstance = null;
+//		_linkedInstance = null;
 		_homoInstance = new homoPacketus[_homoCount];
 
 		for (int i = 0; i < _homoCount; ++i) {
@@ -22,7 +22,7 @@ public class homoMngr : baseMngr<homoMngr> {
 			_homoInstance [i].SetBounds (0.3f / _homoCount * i + 0.2f, 0.3f / _homoCount * i + 0.5f);
 			_homoInstance [i].name = "HomoPacketus_" + i;
 		}
-		AssignCameraLink ();
+//		AssignCameraLink ();
 	}
 
 	public void Attack(BirdScrp target){
@@ -46,9 +46,13 @@ public class homoMngr : baseMngr<homoMngr> {
 
 		for (int i = 0; i < _homoCount; ++i) {
 			if (_homoInstance [i].State () != homoPacketus.state.Attack &&
-			    _homoInstance [i].State () != homoPacketus.state.Dead && 
-				Mathf.Abs(Camera.main.WorldToViewportPoint(_homoInstance[i].transform.position).y - viewportPosition) < tolerance) {
-				return _homoInstance[i];
+			    _homoInstance [i].State () != homoPacketus.state.Dead)
+			{
+				float distance_ = Mathf.Abs (Camera.main.WorldToViewportPoint (_homoInstance [i].transform.position).y - viewportPosition);
+				
+				if ( distance_ < tolerance) {
+					return _homoInstance[i];
+				}
 			}
 		}
 		return null;
@@ -63,7 +67,7 @@ public class homoMngr : baseMngr<homoMngr> {
 		return false;
 	}
 
-	void AssignCameraLink(){
+/*	void AssignCameraLink(){
 		if (_linkedInstance != null && _linkedInstance.GetComponent<homoPacketus>().State () == homoPacketus.state.Alive) {
 			return;
 		} else if (_linkedInstance != null && _linkedInstance.GetComponent<homoPacketus>().State () == homoPacketus.state.Dead) {
@@ -77,9 +81,9 @@ public class homoMngr : baseMngr<homoMngr> {
 				return;
 			}	
 		}
-	}
+	}*/
 
 	void Update(){
-		AssignCameraLink ();
+//		AssignCameraLink ();
 	}
 }

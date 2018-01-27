@@ -148,21 +148,21 @@ public class homoPacketus : MonoBehaviour {
 
 		UpdateInterpolate ();
 		UpdateThrowPull ();
-		bool anyoneWalking = homoMngr.instance.AnyoneWalking (this);
+//		bool anyoneWalking = homoMngr.instance.AnyoneWalking (this);
 		_stateDuration += Time.deltaTime;
 		float camX_ = Camera.main.WorldToViewportPoint (transform.position).x;
 		bool behind = camX_ < _lowerBound;
 		bool ahead = camX_ > _upperBound;
-		bool wayahead = camX_ > 0.9f;
+		bool wayahead = camX_ > 0.8f;
 
-		if ((_state == state.Alive && anyoneWalking && !behind)) {
+		if ((_state == state.Alive /*&& anyoneWalking*/ && !behind) || (wayahead) ) {
 			if (_stateDuration > _nextIdleTimestamp) {
 				GetComponent<Animator> ().SetTrigger ("idle");
 				_state = state.Idling;
 			}
 		}
 	
-		if ((_state == state.Rush && ahead) || !anyoneWalking ) {
+		if ((_state == state.Rush && ahead) /*|| !anyoneWalking*/ ) {
 			_state = state.Alive;
 			GetComponent<Animator>().SetTrigger("walk");
 			CalculateNextIdle ();

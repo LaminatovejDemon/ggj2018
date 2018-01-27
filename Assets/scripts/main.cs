@@ -15,7 +15,6 @@ public class main : MonoBehaviour {
         }
 		lineMngr.instance.Initialise ();
 		homoMngr.instance.Initialise ();
-		homoMngr.instance.AnyoneAround (0.5f);
 	}
 
 	void Update () {
@@ -27,5 +26,7 @@ public class main : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			shoutMngr.instance.TriggerHit ();
 		}
+
+		Camera.main.transform.position += Vector3.right * Time.deltaTime;
 	}
 }
