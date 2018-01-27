@@ -5,7 +5,7 @@ using UnityEngine;
 public class main : MonoBehaviour {
 
 	void Start(){
-		enemyMngr.instance.create (0.5f);
+		enemyMngr.instance.create (0.45f);
 		lineMngr.instance.Initialise ();
 	}
 

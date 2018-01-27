@@ -302,6 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4960341942319930}
   - component: {fileID: 95175983531783654}
+  - component: {fileID: 114766876849974762}
   m_Layer: 0
   m_Name: swimingBird
   m_TagString: Untagged
@@ -541,7 +542,7 @@ Transform:
   m_GameObject: {fileID: 1978332613522280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7, y: 0.2, z: -15.36}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4398925827698388}
   m_Father: {fileID: 0}
@@ -1054,3 +1055,14 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114766876849974762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1978332613522280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811f297d9a026af42ad9b74ab60c92b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
