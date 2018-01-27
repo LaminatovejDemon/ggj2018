@@ -15,6 +15,7 @@ public class BirdScrp : MonoBehaviour {
     int startingCompleteLineNo = -1;
     int completeNo = 0;
     int difComplete;
+    public GameObject _claw;
 
 	void Start () {
         animator = GetComponent<Animator>();
@@ -116,7 +117,8 @@ public class BirdScrp : MonoBehaviour {
 
     void holdVictim() {
         if (timeStartedAttack + 0.5f < Time.time) {
-            victim.transform.position = gameObject.transform.position;
+            victim.transform.parent = _claw.transform;
+            victim.transform.localPosition = victim.transform.position - victim._heel.transform.position;
             victim.GetComponent<Animator>().SetTrigger("victim");
             victim.Die();
             Debug.Log("holding");
@@ -147,7 +149,7 @@ public class BirdScrp : MonoBehaviour {
         swap();
         completeNo = lineMngr.instance.completeNo;
         //Debug.Log("starting" + startingCompleteLineNo + "    new" + completeNo);
-        if (startingCompleteLineNo <= completeNo)
+        if (startingCompleteLineNo+1 <= completeNo)
         {
             if (!grabVictim)
             {
