@@ -53,3 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundTemplate: {fileID: 114213504955545042, guid: f4c48589a31bf43c39b678a3234dd643,
     type: 2}
+  _grassTemplates:
+  - {fileID: 1831315851800042, guid: aca6fe8010a304338aa3ada926283d7f, type: 2}

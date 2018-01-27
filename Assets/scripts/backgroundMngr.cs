@@ -7,6 +7,7 @@ public class backgroundMngr : baseMngr<backgroundMngr> {
 	public float _speed = 0.1f;
 	bool _initialised = false;
 
+
 	public void Initialise(){
 		if (_initialised) {
 			return;
