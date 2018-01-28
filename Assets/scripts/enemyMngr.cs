@@ -38,7 +38,7 @@ public class enemyMngr : baseMngr<enemyMngr>
 					enemyList [i].transform.parent = Camera.main.transform;
                     for (int a = 0; a < 10000; ++a)
                     {
-                        targetSeg = Random.Range(1, 8);
+                        targetSeg = Random.Range(1, 9);
                         if (freeSeg[targetSeg]) {
                             enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * ((0.05f)+(targetSeg*0.1f))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
                             freeSeg[targetSeg] = false;
