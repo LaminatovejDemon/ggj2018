@@ -33,6 +33,12 @@ public class enemyMngr : baseMngr<enemyMngr>
 //		}
 	}
 
+	public void SafeBirds(){
+		for (int i = 0; i < enemyList.Count; ++i) {
+			(enemyList [i] as BirdScrp).SafeBird();
+		}
+	}
+
 	public void create(int prefferedSlot = -1)
     {
 		Initialise ();

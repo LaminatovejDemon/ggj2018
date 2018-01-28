@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1496715477321412}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: -2.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4725133515062228}
@@ -310,10 +310,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1236859505555644}
-  m_Text: '
-
-
-    is below those evil swimBIRDS'
+  m_Text: "\n\n                            is below the BIRD"
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -355,7 +352,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1672981109801470}
-  m_Text: "\n   SHOUT when the "
+  m_Text: "\n   SHOUT ANYTHING when the "
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -376,7 +373,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1083064874714472}
-  m_Text: "     \n                                   yellow trail line \n              "
+  m_Text: "     \n                                   \nyellow trail line \n              "
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -402,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 102623254704345124}
-  _duration: 6
+  _duration: 1000
   _startOffset: 0
 --- !u!114 &114120118231063836
 MonoBehaviour:
@@ -416,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 102870535528050644}
-  _duration: 6
+  _duration: 1000
   _startOffset: 1.3
 --- !u!114 &114477306058986302
 MonoBehaviour:
@@ -430,7 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 102315095118720346}
-  _duration: 6
+  _duration: 1000
   _startOffset: 1.8
 --- !u!114 &114753307706837234
 MonoBehaviour:
@@ -444,5 +441,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 102733977691096790}
-  _duration: 6
+  _duration: 1000
   _startOffset: 1

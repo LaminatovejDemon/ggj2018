@@ -6,6 +6,7 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 
 	public TextMesh _text;
 	public GameObject _howto;
+	GameObject _howtoInstance;
 
 	float _startTime;
 
@@ -56,8 +57,10 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 		homoMngr.instance.Initialise ();
 		enemyMngr.instance.Initialise ();
 		enemyMngr.instance.PrepareEnemy (1, 2);
+		enemyMngr.instance.SafeBirds();
 
-		GameObject.Instantiate (_howto).transform.parent = Camera.main.transform;
+		_howtoInstance = GameObject.Instantiate (_howto);
+		_howtoInstance.transform.parent = Camera.main.transform;
 	}
 
 	void UpdateGame(){
@@ -66,6 +69,10 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 		}
 
 		if (Camera.main.GetComponent<main> ().scoreMngr.GetScore () > 0 && shoutMngr.instance._segmentCount == 2) {
+			if (_howtoInstance != null) {
+				GameObject.Destroy (_howtoInstance.gameObject);
+				_howtoInstance = null;
+			}
 			shoutMngr.instance.SetSegmentCount (3);
 		}
 		else if (Camera.main.GetComponent<main> ().scoreMngr.GetScore () > 4*shoutMngr.instance._segmentCount && shoutMngr.instance._segmentCount < 11 ) {

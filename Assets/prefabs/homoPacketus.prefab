@@ -1601,4 +1601,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spearTemplate: {fileID: 1615765041310172}
   _heel: {fileID: 1843705590262684}
-  _suicideRatio: 0.2
+  _suicideRatio: 0.33

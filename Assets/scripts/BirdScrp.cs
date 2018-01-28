@@ -163,6 +163,11 @@ public class BirdScrp : MonoBehaviour {
         }
     }
 
+	bool _safeBird = false;
+	public void SafeBird(){
+		_safeBird = true;
+	}
+
     void drawExlanations() {
         difComplete = completeNo - startingCompleteLineNo;
         if (difComplete == 3) {
@@ -192,6 +197,12 @@ public class BirdScrp : MonoBehaviour {
 
         idle();
         swap();
+
+
+		if (_safeBird) {
+			return;
+		}
+
         completeNo = lineMngr.instance.completeNo;
         //Debug.Log("starting" + startingCompleteLineNo + "    new" + completeNo);
 		if (startingCompleteLineNo+3 <= completeNo )
