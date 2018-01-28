@@ -54,6 +54,7 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 	void InitGame(){
 		homoMngr.instance.Initialise ();
 		enemyMngr.instance.Initialise ();
+		enemyMngr.instance.PrepareEnemy (1, 2);
 	}
 
 	void UpdateGame(){

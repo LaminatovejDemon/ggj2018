@@ -16,8 +16,8 @@ public class BirdScrp : MonoBehaviour {
     int completeNo = 0;
     int difComplete;
     public GameObject _claw;
-    public int segmentID;
-    public int arrayListID;
+    public int key;
+//    public int arrayListID;
 
 	enum state {
 		Flying,
@@ -84,9 +84,13 @@ public class BirdScrp : MonoBehaviour {
         homoMngr.instance.VictimIsGone(victim);
         Destroy(gameObject);
     }
+
+	public void OnDeathFinished(){
+		Destroy (gameObject);
+	}
 		
     void removeFromList() {
-        enemyMngr.instance.removeBird(arrayListID,segmentID, this);
+        enemyMngr.instance.removeBird(this);
     }
 
     void decrease() {
@@ -177,10 +181,12 @@ public class BirdScrp : MonoBehaviour {
         }
     }
 	void Update () {
-		
+
 		if (_state != state.Flying) {
 			return;
 		}
+
+	
 
         if (startingCompleteLineNo < 0) startingCompleteLineNo = lineMngr.instance.completeNo;
 

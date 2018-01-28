@@ -89,6 +89,7 @@ public class homoMngr : baseMngr<homoMngr> {
     public void VictimIsGone(homoPacketus victim)
     {
 		NotifyDead (victim);
+		GameObject.Destroy (victim.gameObject);
     }
 
 }

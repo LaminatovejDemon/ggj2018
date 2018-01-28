@@ -6,9 +6,10 @@ public class enemyMngr : baseMngr<enemyMngr>
 {
 
 	public BirdScrp enemyTemplate;
-	BirdScrp[] enemyList;
-    int enemyOnScreen = 0;
-    bool[] freeSeg = new bool[10];
+	Hashtable enemyList;
+
+//    int enemyOnScreen = 0;
+  //  bool[] freeSeg;
     int targetSeg;
     int maxNoSeg;
 	public GameObject _container;
@@ -18,76 +19,72 @@ public class enemyMngr : baseMngr<enemyMngr>
 		if (enemyList != null) {
 			return;
 		}
+		//freeSeg = new bool[shoutMngr.instance._segmentCount];
 
 		_container = new GameObject ();
 		_container.name = "#birds";
 		_container.transform.parent = Camera.main.transform;
 
-		enemyList = new BirdScrp[10];
-		for (int i = 0; i < 10; ++i)
-		{
-			enemyList[i] = null;
-            freeSeg[i] = true;
-		}
+		enemyList = new Hashtable();
+//		for (int i = 0; i < shoutMngr.instance._segmentCount; ++i)
+//		{
+//			enemyList.Add (null);
+//            freeSeg[i] = true;
+//		}
 	}
 
-    public void create()
+	public void create(int prefferedSlot = -1)
     {
 		Initialise ();
-        maxNoSeg = shoutMngr.instance._segmentCount -2;
+		maxNoSeg = shoutMngr.instance._segmentCount > 5 ? 1 : 0;
         targetSeg = -1;
-        if (enemyOnScreen < 9)
+		if (enemyList.Count < shoutMngr.instance._segmentCount - (maxNoSeg*2) -1 )
         {
-            for (int i = 0; i < maxNoSeg; i++)
+			int temp = prefferedSlot == -1 ? Random.Range(0, maxNoSeg+1) : prefferedSlot;
+			for (int a = maxNoSeg; a < shoutMngr.instance._segmentCount - (2 * maxNoSeg); a++)
             {
-                if (enemyList[i] == null)
-                {
-					enemyList[i] = GameObject.Instantiate(enemyTemplate).GetComponent<BirdScrp>();
-					enemyList [i].transform.parent = _container.transform;
-                    int temp = Random.Range(0, maxNoSeg+1);
-                    for (int a = 1; a < maxNoSeg+1; a++)
-                    {
-                        int id = (a + temp) % maxNoSeg+1;
-                        if (freeSeg[id]) {
-                            enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * ((0.05f)+(id* shoutMngr.instance.GetViewPortSegmentSize()))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
-                            freeSeg[id] = false;
-                            enemyList[i].segmentID = id;
-                            enemyList[i].arrayListID = i;
-                            break;
-                        }
-                        
-                    }
-                
-					//enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * posX).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
-                    enemyOnScreen++;
-                    return;
-          	     }    
-            }
-        }
-    }
-	public void removeBird(int listID, int segmentID, BirdScrp source) {
-        if (enemyList[listID] != null)
-        {
-            enemyList[listID] = null;
-            freeSeg[segmentID] = true;
-            enemyOnScreen--;
-        }
+				int id = (a + temp) % shoutMngr.instance._segmentCount - maxNoSeg;
+				if (id < maxNoSeg) {
+					++id;
+				}
+
+				if (!enemyList.Contains(id)) {
+					enemyList[id] = GameObject.Instantiate(enemyTemplate).GetComponent<BirdScrp>();
+					(enemyList[id] as BirdScrp).transform.parent = _container.transform;
+					(enemyList[id] as BirdScrp).transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * (((id+0.5f)* shoutMngr.instance.GetViewPortSegmentSize()))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
+					(enemyList[id] as BirdScrp).key = id;
+					return;
+                }
+			}
+		}    
+	}
+
+	public void removeBird(BirdScrp source) {
+		enemyList.Remove(source.key);
+		source.key = -1;
     }
 
 	public BirdScrp TestEnemy(float startpoint, float endPoint) {
 		Initialise ();
 
-        for (int i = 0; i < 10; i++)
+		for (int i = 0; i < shoutMngr.instance._segmentCount; i++)
         {
 			if (enemyList [i] != null) {
-				float posX_ = Camera.main.WorldToViewportPoint (enemyList [i].transform.position).x;
-				if (posX_ > startpoint && posX_ < endPoint && enemyList[i].IsAvailableToAttack() ) {
-					return enemyList[i];
+				float posX_ = Camera.main.WorldToViewportPoint ((enemyList[i] as BirdScrp).transform.position).x;
+				if (posX_ > startpoint && posX_ < endPoint && (enemyList[i] as BirdScrp).IsAvailableToAttack() ) {
+					return (enemyList[i] as BirdScrp);
 				} 
 			}
         }
 		return null;
     }
+
+	public void PrepareEnemy(int number, int prefererSlot = -1){
+		for (int i = 0; i < number; i++) { 
+			create(prefererSlot); 
+		}
+		Debug.Log("making new" + enemyList.Count);
+	}
 
     void Update()
     {
@@ -106,11 +103,10 @@ public class enemyMngr : baseMngr<enemyMngr>
             create();
         }
         */
-		if (enemyOnScreen == 0 || (enemyOnScreen == 1 && _semiWaveAddition)) {
+		if (enemyList.Count == 0 || (enemyList.Count == 1 && _semiWaveAddition)) {
             int number = Random.Range(1, 4);
 			_semiWaveAddition = (number == 2 && Random.value < 0.5f);
-            for (int i = 0; i < number; i++) { create(); }
-            Debug.Log("making new" + enemyOnScreen);
+			PrepareEnemy (number);
         }
         //Debug.Log("" + enemyOnScreen);
     }
