@@ -19,7 +19,15 @@ public class BirdScrp : MonoBehaviour {
     public int segmentID;
     public int arrayListID;
 
+	enum state {
+		Flying,
+		Dying,
+	};
+
+	state _state;
+
 	void Start () {
+		_state = state.Flying;
         animator = GetComponent<Animator>();
         animator.SetFloat("drift", 0);
         animator.speed = 0.4f;
@@ -30,6 +38,7 @@ public class BirdScrp : MonoBehaviour {
             _exclamationMarks[i].SetActive(false);
         }
     }
+
     void increase() {
         if (animator.speed < speedSwim)
         {
@@ -37,7 +46,12 @@ public class BirdScrp : MonoBehaviour {
             animator.speed = animator.speed + 0.01f;
         }
     }
-    public void capture()
+
+	public bool IsAvailableToAttack(){
+		return _state == state.Flying;
+	}
+    
+	void capture()
     {
         victim = homoMngr.instance.AnyoneAround(Camera.main.WorldToViewportPoint(gameObject.transform.position).x);
         if (victim != null)
@@ -50,23 +64,29 @@ public class BirdScrp : MonoBehaviour {
 
         }
     }
+
+	public void ResetTriggers(){
+		animator.ResetTrigger ("die");
+		animator.ResetTrigger ("attack");
+		animator.ResetTrigger ("drift");
+	}
+
+	public void Die(){
+		_state = state.Dying;
+		ResetTriggers ();
+		animator.SetTrigger("die");
+		//Debug.Log ("bird is dying");
+		removeFromList();
+	}
+
     public void OnAttackFinished()
     {
         homoMngr.instance.VictimIsGone(victim);
         Destroy(gameObject);
     }
-
-	public void Die(){
-        animator.SetTrigger("die");
-		//Debug.Log ("bird is dying");
-        transform.parent = null;
-        removeFromList();
-        
-        
-
-    }
+		
     void removeFromList() {
-        enemyMngr.instance.removeBird(arrayListID,segmentID);
+        enemyMngr.instance.removeBird(arrayListID,segmentID, this);
     }
 
     void decrease() {
@@ -157,20 +177,25 @@ public class BirdScrp : MonoBehaviour {
         }
     }
 	void Update () {
+		
+		if (_state != state.Flying) {
+			return;
+		}
+
         if (startingCompleteLineNo < 0) startingCompleteLineNo = lineMngr.instance.completeNo;
 
         idle();
         swap();
         completeNo = lineMngr.instance.completeNo;
         //Debug.Log("starting" + startingCompleteLineNo + "    new" + completeNo);
-        if (startingCompleteLineNo+2 <= completeNo)
+		if (startingCompleteLineNo+2 <= completeNo )
         {
-            if (!grabVictim)
+			if (!grabVictim  )
             {
                capture();
             }
             else if (victim != null)
-            {
+			{
                 holdVictim();
             }
         }

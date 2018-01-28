@@ -11,11 +11,16 @@ public class enemyMngr : baseMngr<enemyMngr>
     bool[] freeSeg = new bool[10];
     int targetSeg;
     int maxNoSeg;
+	public GameObject _container;
 
 	public void Initialise(){
 		if (enemyList != null) {
 			return;
 		}
+
+		_container = new GameObject ();
+		_container.name = "#birds";
+		_container.transform.parent = Camera.main.transform;
 
 		enemyList = new BirdScrp[10];
 		for (int i = 0; i < 10; ++i)
@@ -37,7 +42,7 @@ public class enemyMngr : baseMngr<enemyMngr>
                 if (enemyList[i] == null)
                 {
 					enemyList[i] = GameObject.Instantiate(enemyTemplate).GetComponent<BirdScrp>();
-					enemyList[i].transform.parent = Camera.main.transform;
+					enemyList [i].transform.parent = _container.transform;
                     int temp = Random.Range(0, maxNoSeg+1);
                     for (int a = 1; a < maxNoSeg+1; a++)
                     {
@@ -59,7 +64,7 @@ public class enemyMngr : baseMngr<enemyMngr>
             }
         }
     }
-    public void removeBird(int listID, int segmentID) {
+	public void removeBird(int listID, int segmentID, BirdScrp source) {
         if (enemyList[listID] != null)
         {
             enemyList[listID] = null;
@@ -67,6 +72,7 @@ public class enemyMngr : baseMngr<enemyMngr>
             enemyOnScreen--;
         }
     }
+
 	public BirdScrp TestEnemy(float startpoint, float endPoint) {
 		Initialise ();
 
@@ -74,7 +80,7 @@ public class enemyMngr : baseMngr<enemyMngr>
         {
 			if (enemyList [i] != null) {
 				float posX_ = Camera.main.WorldToViewportPoint (enemyList [i].transform.position).x;
-				if (posX_ > startpoint && posX_ < endPoint) {
+				if (posX_ > startpoint && posX_ < endPoint && enemyList[i].IsAvailableToAttack() ) {
 					return enemyList[i];
 				} 
 			}

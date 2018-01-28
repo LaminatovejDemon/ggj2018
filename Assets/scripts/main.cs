@@ -15,6 +15,7 @@ public class main : MonoBehaviour {
 	public void Restart(){
 		lineMngr.instance.Initialise ();
 		homoMngr.instance.Initialise ();
+		enemyMngr.instance.Initialise ();
 	}
 
 	void Update () {

@@ -27,7 +27,7 @@ public class homoMngr : baseMngr<homoMngr> {
 			new_.transform.position = pos_;
 			new_.transform.position += Vector3.left * (i - _homoCount*0.5f) + Vector3.right * (Camera.main.orthographicSize * Camera.main.aspect + 2);
 
-			new_.SetBounds (0.3f / _homoCount * i + 0.2f, 0.3f / _homoCount * i + 0.5f);
+			new_.SetBounds (0.3f / _homoCount * i + 0.1f, 0.3f / _homoCount * i + 0.5f);
 			new_.name = "HomoPacketus_" + i;
 			new_.transform.parent = _container.transform;
 			_homoInstance.Add(new_);

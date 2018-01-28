@@ -52,9 +52,21 @@ public class homoPacketus : MonoBehaviour {
 		_spear.SetActive (false);
 	}
 
+	void ResetTriggers(){
+		GetComponent<Animator> ().ResetTrigger ("throw");
+		GetComponent<Animator> ().ResetTrigger ("suicide");
+		GetComponent<Animator> ().ResetTrigger ("miss");
+		GetComponent<Animator> ().ResetTrigger ("attack");
+		GetComponent<Animator> ().ResetTrigger ("idle");
+		GetComponent<Animator> ().ResetTrigger ("rush");
+		GetComponent<Animator> ().ResetTrigger ("walk");
+		GetComponent<Animator> ().ResetTrigger ("victim");
+	}
+
 	public void Attack(BirdScrp target){
 		if (_state != state.Dead) {
 			if (target != null) {
+				ResetTriggers ();
 				GetComponent<Animator> ().SetTrigger ("throw");
 				_state = state.Attack;
 				_target = target;
@@ -87,7 +99,7 @@ public class homoPacketus : MonoBehaviour {
 	}
 
 	public void OnThrowPull(){
-		_spear.transform.parent = null;
+		_spear.transform.parent = homoMngr.instance._container.transform;
 		_spear.transform.position = _spearTemplate.transform.position;
 		_spear.transform.rotation = _spearTemplate.transform.rotation;
 		_spear.SetActive (true);
