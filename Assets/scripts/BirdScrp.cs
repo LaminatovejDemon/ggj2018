@@ -75,8 +75,8 @@ public class BirdScrp : MonoBehaviour {
 		_state = state.Dying;
 		ResetTriggers ();
 		animator.SetTrigger("die");
-		//Debug.Log ("bird is dying");
-		removeFromList();
+        Camera.main.GetComponent<main>().scoreMngr.birdScore++;
+        removeFromList();
 	}
 
     public void OnAttackFinished()
@@ -91,6 +91,7 @@ public class BirdScrp : MonoBehaviour {
 		
     void removeFromList() {
         enemyMngr.instance.removeBird(this);
+        
     }
 
     void decrease() {

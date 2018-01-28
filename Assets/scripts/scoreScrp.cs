@@ -7,8 +7,8 @@ public class scoreScrp : MonoBehaviour {
 
     public Text birdKill;
     public Text homoKill;
-    public int birdScore = 2;
-    public int homoScore = 1;
+    public int birdScore = 0;
+    public int homoScore = 0;
 	void Start () {
 		
 	}
