@@ -38,6 +38,15 @@ public class enemyMngr : baseMngr<enemyMngr>
 		Initialise ();
 		maxNoSeg = shoutMngr.instance._segmentCount > 5 ? 1 : 0;
         targetSeg = -1;
+
+
+		// Another HACK
+		for (int i = 0; i < enemyList.Count; ++i) {
+			if (enemyList [i] == null) {
+				enemyList.Remove (i);
+			}
+		}
+
 		if (enemyList.Count < shoutMngr.instance._segmentCount - (maxNoSeg*2) -1 )
         {
 			int temp = prefferedSlot == -1 ? Random.Range(0, maxNoSeg+1) : prefferedSlot;
@@ -62,7 +71,9 @@ public class enemyMngr : baseMngr<enemyMngr>
 	public void recalculateBirds()
 	{
 		for (int i = 0; i < enemyList.Count; ++i) {
-			(enemyList[i] as BirdScrp).transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * (((i+0.5f)* shoutMngr.instance.GetViewPortSegmentSize()))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
+			if (enemyList [i] != null) {
+				(enemyList [i] as BirdScrp).transform.position = new Vector3 (Camera.main.ViewportToWorldPoint (Vector3.right * (((i + 0.5f) * shoutMngr.instance.GetViewPortSegmentSize ()))).x, Camera.main.ViewportToWorldPoint (Vector3.one * 0.9f).y, -10);
+			}
 		}
 	}
 
@@ -90,7 +101,6 @@ public class enemyMngr : baseMngr<enemyMngr>
 		for (int i = 0; i < number; i++) { 
 			create(prefererSlot); 
 		}
-		Debug.Log("making new" + enemyList.Count);
 	}
 
     void Update()

@@ -23,7 +23,7 @@ public class microphoneMngr : baseMngr<microphoneMngr>{
 			if (Microphone.devices [i] != null) {
 				_microphone = Microphone.devices [i];
 				Debug.Log ("Our first device is " + _microphone);
-				_audio.clip = Microphone.Start (_microphone, true, 16, 44100);
+				_audio.clip = Microphone.Start (_microphone, true, 1, 44100);
 				_audio.loop = true;
 				_state = MicrophoneState.Initialized;
 			}

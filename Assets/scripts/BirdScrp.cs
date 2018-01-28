@@ -68,7 +68,6 @@ public class BirdScrp : MonoBehaviour {
 	public void ResetTriggers(){
 		animator.ResetTrigger ("die");
 		animator.ResetTrigger ("attack");
-		animator.ResetTrigger ("drift");
 	}
 
 	public void Die(){

@@ -51,13 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42025ec85770b4b96baf8d24eaf73969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _segmentCount: 6
+  _segmentCount: 2
   _segmentPrefab: {fileID: 1777154943445088, guid: d6919d9306b5043fa8542c862e20fe34,
     type: 2}
   _hitPrefab: {fileID: 114362325004116948, guid: 4b2109a8a27034dd8837bb31066c8b56,
     type: 2}
   _segmentGap: 0.1
-  _shoutThreshold: 50
+  _shoutThreshold: 800
   _activeColor: {r: 1, g: 0.93103445, b: 0, a: 0.066}
   _inactiveColor: {r: 0.6691177, g: 0.290279, b: 0.290279, a: 0.085}
   _hotColor: {r: 1, g: 0.8482759, b: 0, a: 0.197}

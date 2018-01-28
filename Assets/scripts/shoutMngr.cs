@@ -14,7 +14,7 @@ public class shoutMngr : baseMngr<shoutMngr> {
 	hit [] _hit;
 	public float _segmentGap = 0.1f;
 	float _currentAmount = 0;
-	public float _shoutThreshold = 50.0f;
+	public float _shoutThreshold = 500.0f;
 
 	public Color _activeColor;
 	public Color _inactiveColor;
@@ -83,9 +83,14 @@ public class shoutMngr : baseMngr<shoutMngr> {
 	void SwitchSegment(int newIndex){
 		Initialise ();
 
+		if (_activeIndex >= _segment.Length) {
+			_activeIndex = 0;
+			return;
+		}
+
 		_segment [_activeIndex].transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_TintColor", _inactiveColor);
 
-		if (_currentAmount > _shoutThreshold) {
+		if (_currentAmount > _shoutThreshold / _segmentCount) {
 			Hit (_activeIndex);
 		}
 

@@ -38,7 +38,6 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 
 		if (_state == state.Title && Time.time < _startTime + _titleStart + _titleLength + _fadeTime + _fadeTime) {
 			float alpha_ = 1.0f - ((Time.time - _startTime - _titleStart - _fadeTime - _titleLength) / _fadeTime);
-			Debug.Log (Time.time + ": alpha is " + alpha_);
 			_text.color = new Color (0, 0, 0, alpha_);
 		} else if (_state == state.Title) {
 			_text.color = new Color (0, 0, 0, 0);
@@ -65,7 +64,7 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 		if (Camera.main.GetComponent<main> ().scoreMngr.GetScore () > 0 && shoutMngr.instance._segmentCount == 2) {
 			shoutMngr.instance.SetSegmentCount (3);
 		}
-		else if (Camera.main.GetComponent<main> ().scoreMngr.GetScore () > 4*shoutMngr.instance._segmentCount ) {
+		else if (Camera.main.GetComponent<main> ().scoreMngr.GetScore () > 4*shoutMngr.instance._segmentCount && shoutMngr.instance._segmentCount < 11 ) {
 			shoutMngr.instance.SetSegmentCount (shoutMngr.instance._segmentCount+1);
 			enemyMngr.instance.recalculateBirds ();
 		}
