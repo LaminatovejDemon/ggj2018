@@ -6,7 +6,7 @@ public class homoMngr : baseMngr<homoMngr> {
 
 	public int _homoCount = 10;
 	public homoPacketus _homoTemplate;
-	homoPacketus[] _homoInstance;
+	List<homoPacketus> _homoInstance;
 	public GameObject _container;
 //	cameraLink _linkedInstance;
 
@@ -15,20 +15,28 @@ public class homoMngr : baseMngr<homoMngr> {
 			return;
 		}
 //		_linkedInstance = null;
-		_homoInstance = new homoPacketus[_homoCount];
+		_homoInstance = new List<homoPacketus>();
 		_container = new GameObject ();
 		_container.name = "#homoContaier";
 		_container.transform.position = Vector3.zero;
 
 		for (int i = 0; i < _homoCount; ++i) {
-			_homoInstance [i] = GameObject.Instantiate (_homoTemplate);
-			_homoInstance [i].transform.position += Vector3.left * (i - _homoCount*0.5f);
-			_homoInstance [i].SetBounds (0.3f / _homoCount * i + 0.2f, 0.3f / _homoCount * i + 0.5f);
-			_homoInstance [i].name = "HomoPacketus_" + i;
-			_homoInstance [i].transform.parent = _container.transform;
+			homoPacketus new_ = GameObject.Instantiate (_homoTemplate);
 
+			new_.transform.position += Vector3.left * (i - _homoCount*0.5f);
+			new_.SetBounds (0.3f / _homoCount * i + 0.2f, 0.3f / _homoCount * i + 0.5f);
+			new_.name = "HomoPacketus_" + i;
+			new_.transform.parent = _container.transform;
+			_homoInstance.Add(new_);
 		}
 //		AssignCameraLink ();
+	}
+
+	public void NotifyDead(homoPacketus source){
+		_homoInstance.Remove (source);
+		if (_homoInstance.Count == 0) {
+			restartMngr.instance.Wipe ();
+		}
 	}
 
 	public void Attack(BirdScrp target){
@@ -71,25 +79,5 @@ public class homoMngr : baseMngr<homoMngr> {
 			}
 		}
 		return false;
-	}
-
-/*	void AssignCameraLink(){
-		if (_linkedInstance != null && _linkedInstance.GetComponent<homoPacketus>().State () == homoPacketus.state.Alive) {
-			return;
-		} else if (_linkedInstance != null && _linkedInstance.GetComponent<homoPacketus>().State () == homoPacketus.state.Dead) {
-			_linkedInstance.enabled = false;
-		}
-			
-		for (int i = 0; i < _homoCount; ++i) {
-			if (_homoInstance [i].State() == homoPacketus.state.Alive ) {
-				_linkedInstance = _homoInstance [i].GetComponent<cameraLink>();
-				_linkedInstance.GetComponent<cameraLink> ().enabled = true;
-				return;
-			}	
-		}
-	}*/
-
-	void Update(){
-//		AssignCameraLink ();
 	}
 }

@@ -9,10 +9,10 @@ public class main : MonoBehaviour {
     public Slider slider;
 
 	void Start(){
-        for (int i = 0; i < 3; ++i)
-        {
-			//enemyMngr.instance.create(0.05f + (0.3f * (i+1)));
-        }
+		Restart ();
+	}
+
+	void Restart(){
 		lineMngr.instance.Initialise ();
 		homoMngr.instance.Initialise ();
 	}
