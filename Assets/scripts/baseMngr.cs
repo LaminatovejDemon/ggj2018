@@ -25,7 +25,7 @@ public class baseMngr<T> : MonoBehaviour
 	}
 
 	public void Drop(){
-		GameObject.Destroy (this);
+		GameObject.Destroy (this.gameObject);
 		_instance = null;
 	}
 }

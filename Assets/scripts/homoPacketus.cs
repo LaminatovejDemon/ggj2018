@@ -185,4 +185,8 @@ public class homoPacketus : MonoBehaviour {
 		bak_.y = _verticalPosition;
 		transform.position = bak_;
 	}
+
+	void OnSuicideFinished(){
+		homoMngr.instance.NotifyDead (this);
+	}
 }

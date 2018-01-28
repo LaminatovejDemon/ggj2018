@@ -12,13 +12,12 @@ public class main : MonoBehaviour {
 		Restart ();
 	}
 
-	void Restart(){
+	public void Restart(){
 		lineMngr.instance.Initialise ();
 		homoMngr.instance.Initialise ();
 	}
 
 	void Update () {
-		backgroundMngr.instance.Initialise ();
 		groundMngr.instance.UpdateVertices();
 
         sliderValue = slider.value;

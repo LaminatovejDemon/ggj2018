@@ -179,7 +179,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4145161471618962}
   - component: {fileID: 95713247579292616}
-  - component: {fileID: 114979250881540830}
   - component: {fileID: 114354667855694336}
   m_Layer: 0
   m_Name: homoPacketus
@@ -1602,14 +1601,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spearTemplate: {fileID: 1615765041310172}
   _heel: {fileID: 1843705590262684}
---- !u!114 &114979250881540830
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1442427445178876}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41553ec60bac44ad188fb607cc86a6b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

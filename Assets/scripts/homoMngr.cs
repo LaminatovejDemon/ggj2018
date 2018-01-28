@@ -33,17 +33,19 @@ public class homoMngr : baseMngr<homoMngr> {
 	}
 
 	public void NotifyDead(homoPacketus source){
+		source.transform.parent = _container.transform;
 		_homoInstance.Remove (source);
+
 		if (_homoInstance.Count == 0) {
 			restartMngr.instance.Wipe ();
 		}
 	}
 
 	public void Attack(BirdScrp target){
-		int from_ = Random.Range (0, _homoCount);
+		int from_ = Random.Range (0, _homoInstance.Count);
 
-		for (int i = 0; i < _homoCount; ++i) {
-			int realIndex_ = (i + from_) % _homoCount;
+		for (int i = 0; i < _homoInstance.Count; ++i) {
+			int realIndex_ = (i + from_) % _homoInstance.Count;
 
 			if (_homoInstance [realIndex_].State () == homoPacketus.state.Alive
 				|| _homoInstance[realIndex_].State() == homoPacketus.state.Idling
@@ -58,7 +60,7 @@ public class homoMngr : baseMngr<homoMngr> {
 
 		float tolerance = shoutMngr.instance.GetViewPortSegmentSize () * 0.5f;
 
-		for (int i = 0; i < _homoCount; ++i) {
+		for (int i = 0; i < _homoInstance.Count; ++i) {
 			if (_homoInstance [i].State () != homoPacketus.state.Attack &&
 			    _homoInstance [i].State () != homoPacketus.state.Dead)
 			{
@@ -73,11 +75,17 @@ public class homoMngr : baseMngr<homoMngr> {
 	}
 
 	public bool AnyoneWalking(homoPacketus exception){
-		for ( int i = 0; i < _homoCount; ++i ){
+		for ( int i = 0; i < _homoInstance.Count; ++i ){
 			if (_homoInstance[i] != exception && _homoInstance [i].State () == homoPacketus.state.Alive) {
 				return true;
 			}
 		}
 		return false;
 	}
+
+    public void VictimIsGone(homoPacketus victim)
+    {
+		NotifyDead (victim);
+    }
+
 }
