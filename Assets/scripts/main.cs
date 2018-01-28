@@ -7,6 +7,7 @@ public class main : MonoBehaviour {
 
     public float sliderValue;
     public Slider slider;
+    public scoreScrp scoreMngr;
 
 	void Start(){
 		Restart ();
