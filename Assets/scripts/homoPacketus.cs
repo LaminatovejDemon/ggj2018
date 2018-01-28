@@ -9,6 +9,7 @@ public class homoPacketus : MonoBehaviour {
 		Idling,
 		Rush,
 		Attack,
+		Miss,
 		Dead,
 	}
 
@@ -20,6 +21,7 @@ public class homoPacketus : MonoBehaviour {
 	float _upperBound = 0.6f;
 	public GameObject _spearTemplate;
     public GameObject _heel;
+	public float _suicideRatio = 0.1f;
 
     GameObject _spear;
 	BirdScrp _target;
@@ -57,9 +59,16 @@ public class homoPacketus : MonoBehaviour {
 				_state = state.Attack;
 				_target = target;
 			} else if (target == null) {
-				GetComponent<Animator> ().SetTrigger ("suicide");
-				_state = state.Dead;
-				_spearTemplate.SetActive (true);
+
+				if (Random.value < _suicideRatio) {
+					GetComponent<Animator> ().SetTrigger ("suicide");
+					_state = state.Dead;
+					_spearTemplate.SetActive (true);
+				} else {
+					GetComponent<Animator> ().SetTrigger ("miss");
+					_spearTemplate.SetActive (true);
+					_state = state.Miss;
+				}
 			}
 		}
 	}
@@ -161,7 +170,7 @@ public class homoPacketus : MonoBehaviour {
 		bool ahead = camX_ > _upperBound;
 		bool wayahead = camX_ > 0.8f;
 
-		if ((_state == state.Alive /*&& anyoneWalking*/ && !behind) || (wayahead) ) {
+		if ((_state == state.Alive /*&& anyoneWalking*/ && !behind) || (wayahead && _state != state.Idling) ) {
 			if (_stateDuration > _nextIdleTimestamp) {
 				GetComponent<Animator> ().SetTrigger ("idle");
 				_state = state.Idling;
@@ -184,6 +193,13 @@ public class homoPacketus : MonoBehaviour {
 		Vector3 bak_ = transform.position;
 		bak_.y = _verticalPosition;
 		transform.position = bak_;
+	}
+
+	public void OnMissEnd(){
+		_spear.SetActive (false);
+		_spearTemplate.SetActive (false);
+		_state = state.Alive;
+		GetComponent<Animator>().SetTrigger("walk");
 	}
 
 	void OnSuicideFinished(){

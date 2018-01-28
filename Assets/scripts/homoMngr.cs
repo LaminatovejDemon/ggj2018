@@ -22,8 +22,11 @@ public class homoMngr : baseMngr<homoMngr> {
 
 		for (int i = 0; i < _homoCount; ++i) {
 			homoPacketus new_ = GameObject.Instantiate (_homoTemplate);
+			Vector3 pos_ = new_.transform.position;
+			pos_.x = Camera.main.transform.position.x;
+			new_.transform.position = pos_;
+			new_.transform.position += Vector3.left * (i - _homoCount*0.5f) + Vector3.right * (Camera.main.orthographicSize * Camera.main.aspect + 2);
 
-			new_.transform.position += Vector3.left * (i - _homoCount*0.5f);
 			new_.SetBounds (0.3f / _homoCount * i + 0.2f, 0.3f / _homoCount * i + 0.5f);
 			new_.name = "HomoPacketus_" + i;
 			new_.transform.parent = _container.transform;
