@@ -9,7 +9,7 @@ public class restartMngr : baseMngr<restartMngr> {
 		enemyMngr.instance.Drop ();
 		Destroy (homoMngr.instance._container);
 		homoMngr.instance.Drop ();
-		homoMngr.instance.Initialise ();
-		enemyMngr.instance.Initialise ();
+
+		tutorialMngr.instance.Initialise ();
 	}
 }

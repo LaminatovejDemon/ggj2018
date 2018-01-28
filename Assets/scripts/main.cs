@@ -13,27 +13,23 @@ public class main : MonoBehaviour {
 	}
 
 	public void Restart(){
-		lineMngr.instance.Initialise ();
-		homoMngr.instance.Initialise ();
-		enemyMngr.instance.Initialise ();
+		tutorialMngr.instance.Initialise ();
 	}
 
 	void Update () {
 		groundMngr.instance.UpdateVertices();
-
-        sliderValue = slider.value;
-
-		if (Input.GetMouseButtonDown (0)) {
-			shoutMngr.instance.TriggerHit ();
-		}
+		lineMngr.instance.Initialise ();
+		sliderValue = slider.value;
 
 		Camera.main.transform.position += Vector3.right * Time.deltaTime;
 
 		float roundedDistance_ = groundMngr.instance.GetRoundedLength ();
 		if (Camera.main.transform.position.x > roundedDistance_ * 3.0f) {
 			Camera.main.transform.position += Vector3.left * roundedDistance_;
-			homoMngr.instance._container.transform.position += Vector3.left * roundedDistance_;
-		}
 
+			if (homoMngr.instance._container != null) {
+				homoMngr.instance._container.transform.position += Vector3.left * roundedDistance_;
+			}
+		}
 	}
 }

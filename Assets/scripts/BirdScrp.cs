@@ -188,7 +188,7 @@ public class BirdScrp : MonoBehaviour {
         swap();
         completeNo = lineMngr.instance.completeNo;
         //Debug.Log("starting" + startingCompleteLineNo + "    new" + completeNo);
-		if (startingCompleteLineNo+2 <= completeNo )
+		if (startingCompleteLineNo+3 <= completeNo )
         {
 			if (!grabVictim  )
             {

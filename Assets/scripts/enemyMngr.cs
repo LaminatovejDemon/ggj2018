@@ -12,6 +12,7 @@ public class enemyMngr : baseMngr<enemyMngr>
     int targetSeg;
     int maxNoSeg;
 	public GameObject _container;
+	bool _semiWaveAddition = false;
 
 	public void Initialise(){
 		if (enemyList != null) {
@@ -105,9 +106,9 @@ public class enemyMngr : baseMngr<enemyMngr>
             create();
         }
         */
-        if (enemyOnScreen == 0) {
-            //int number = Random.Range(1, 3);
-            int number = 3;
+		if (enemyOnScreen == 0 || (enemyOnScreen == 1 && _semiWaveAddition)) {
+            int number = Random.Range(1, 4);
+			_semiWaveAddition = (number == 2 && Random.value < 0.5f);
             for (int i = 0; i < number; i++) { create(); }
             Debug.Log("making new" + enemyOnScreen);
         }
