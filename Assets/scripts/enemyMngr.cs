@@ -12,7 +12,7 @@ public class enemyMngr : baseMngr<enemyMngr>
     int targetSeg;
     int maxNoSeg;
 
-	void Initialise(){
+	public void Initialise(){
 		if (enemyList != null) {
 			return;
 		}
@@ -39,7 +39,7 @@ public class enemyMngr : baseMngr<enemyMngr>
 					enemyList[i] = GameObject.Instantiate(enemyTemplate).GetComponent<BirdScrp>();
 					enemyList[i].transform.parent = Camera.main.transform;
                     int temp = Random.Range(0, maxNoSeg+1);
-                    for (int a = 1; a < maxNoSeg+1; ++a)
+                    for (int a = 1; a < maxNoSeg+1; a++)
                     {
                         int id = (a + temp) % maxNoSeg+1;
                         if (freeSeg[id]) {
@@ -47,8 +47,9 @@ public class enemyMngr : baseMngr<enemyMngr>
                             freeSeg[id] = false;
                             enemyList[i].segmentID = id;
                             enemyList[i].arrayListID = i;
-                            return;
+                            break;
                         }
+                        
                     }
                 
 					//enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * posX).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
@@ -59,9 +60,12 @@ public class enemyMngr : baseMngr<enemyMngr>
         }
     }
     public void removeBird(int listID, int segmentID) {
-        enemyList[listID] = null;
-        freeSeg[segmentID] = true;
-        enemyOnScreen--;
+        if (enemyList[listID] != null)
+        {
+            enemyList[listID] = null;
+            freeSeg[segmentID] = true;
+            enemyOnScreen--;
+        }
     }
 	public BirdScrp TestEnemy(float startpoint, float endPoint) {
 		Initialise ();
@@ -96,8 +100,11 @@ public class enemyMngr : baseMngr<enemyMngr>
         }
         */
         if (enemyOnScreen == 0) {
-            int temp = Random.Range(1, 9);
-            for (int i = 0; i < temp + 1; ++i) create();
+            //int number = Random.Range(1, 3);
+            int number = 3;
+            for (int i = 0; i < number; i++) { create(); }
+            Debug.Log("making new" + enemyOnScreen);
         }
+        //Debug.Log("" + enemyOnScreen);
     }
 }

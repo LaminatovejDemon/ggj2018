@@ -45,7 +45,8 @@ public class BirdScrp : MonoBehaviour {
             animator.SetTrigger("attack");
             timeStartedAttack = Time.time;
             grabVictim = true;
-            Debug.Log("found victim"+ victim.transform.position);
+            removeFromList();
+            //Debug.Log("found victim"+ victim.transform.position);
 
         }
     }
@@ -132,9 +133,9 @@ public class BirdScrp : MonoBehaviour {
 		if (timeStartedAttack + 0.5f < Time.time) {
             //victim.transform.parent = _claw.transform;
 			victim.transform.position = (victim.transform.position - victim._heel.transform.position) + _claw.transform.position;
-            removeFromList();
+            
             victim.Die();
-            Debug.Log("holding");
+            //Debug.Log("holding");
         }
     }
 
