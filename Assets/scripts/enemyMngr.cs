@@ -80,6 +80,7 @@ public class enemyMngr : baseMngr<enemyMngr>
 
     void Update()
     {
+        /*
         Debug.Log("" + enemyOnScreen);
         for (int i = 0; i < 10; ++i)
         {
@@ -93,6 +94,10 @@ public class enemyMngr : baseMngr<enemyMngr>
             Debug.Log("space");
             create();
         }
-        
+        */
+        if (enemyOnScreen == 0) {
+            int temp = Random.Range(1, 9);
+            for (int i = 0; i < temp + 1; ++i) create();
+        }
     }
 }
