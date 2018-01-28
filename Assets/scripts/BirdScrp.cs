@@ -16,6 +16,7 @@ public class BirdScrp : MonoBehaviour {
     int completeNo = 0;
     int difComplete;
     public GameObject _claw;
+    public int segmentID;
 
 	void Start () {
         animator = GetComponent<Animator>();
@@ -149,7 +150,7 @@ public class BirdScrp : MonoBehaviour {
         swap();
         completeNo = lineMngr.instance.completeNo;
         //Debug.Log("starting" + startingCompleteLineNo + "    new" + completeNo);
-        if (startingCompleteLineNo+1 <= completeNo)
+        if (startingCompleteLineNo+10 <= completeNo)
         {
             if (!grabVictim)
             {

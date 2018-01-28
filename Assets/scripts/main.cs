@@ -11,7 +11,7 @@ public class main : MonoBehaviour {
 	void Start(){
         for (int i = 0; i < 3; ++i)
         {
-			enemyMngr.instance.create(0.05f + (0.3f * (i+1)));
+			//enemyMngr.instance.create(0.05f + (0.3f * (i+1)));
         }
 		lineMngr.instance.Initialise ();
 		homoMngr.instance.Initialise ();
