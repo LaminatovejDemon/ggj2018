@@ -61,5 +61,14 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 		if (Input.GetMouseButtonDown (0)) {
 			shoutMngr.instance.TriggerHit ();
 		}
+
+		if (Camera.main.GetComponent<main> ().scoreMngr.GetScore () > 0 && shoutMngr.instance._segmentCount == 2) {
+			shoutMngr.instance.SetSegmentCount (3);
+		}
+		else if (Camera.main.GetComponent<main> ().scoreMngr.GetScore () > 4*shoutMngr.instance._segmentCount ) {
+			shoutMngr.instance.SetSegmentCount (shoutMngr.instance._segmentCount+1);
+			enemyMngr.instance.recalculateBirds ();
+		}
+
 	}
 }

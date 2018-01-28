@@ -5,6 +5,8 @@ using UnityEngine;
 public class shoutMngr : baseMngr<shoutMngr> {
 
 	public int _segmentCount = 4;
+	int _localSegmentCount;
+
 	public GameObject _segmentPrefab;
 	public hit _hitPrefab;
 
@@ -18,13 +20,16 @@ public class shoutMngr : baseMngr<shoutMngr> {
 	public Color _inactiveColor;
 	public Color _hotColor;
 
-
+	public void SetSegmentCount(int newNumber){
+		_localSegmentCount = newNumber;
+	}
 
 	float _segmentSize = 0;
 
 	int _activeIndex = 0;
 
 	void Start(){
+		_localSegmentCount = _segmentCount;
 		Initialise ();
 	}
 
@@ -40,9 +45,19 @@ public class shoutMngr : baseMngr<shoutMngr> {
 	}
 
 	public void Initialise(){
-		if (_segment != null) {
+		if (_segment != null && _segmentCount == _localSegmentCount) {
 			return;
 		}
+
+		if (_segment != null) {
+			for (int i = 0; i < _segment.Length; ++i) {
+				GameObject.Destroy (_segment [i].gameObject);
+				GameObject.Destroy (_hit [i].gameObject);
+			}
+		}
+
+		_segmentCount = _localSegmentCount;
+
 		_currentAmount = 0;
 		_segment = new GameObject[_segmentCount];
 		_hit = new hit[_segmentCount];
@@ -62,9 +77,12 @@ public class shoutMngr : baseMngr<shoutMngr> {
 			_hit[i].transform.position = Camera.main.ViewportToWorldPoint (Vector3.zero) + Vector3.right * (_segment [i].transform.localScale.x + _segmentGap) * i + Vector3.back * 1.1f;
 			_hit[i].transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_TintColor", _inactiveColor);
 		}
+
 	}
 
 	void SwitchSegment(int newIndex){
+		Initialise ();
+
 		_segment [_activeIndex].transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_TintColor", _inactiveColor);
 
 		if (_currentAmount > _shoutThreshold) {

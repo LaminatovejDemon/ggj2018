@@ -12,7 +12,15 @@ public class scoreScrp : MonoBehaviour {
 	void Start () {
 		
 	}
-	
+
+	public void ResetScore(){
+		birdScore = 0;
+		homoScore = 0;
+	}
+
+	public int GetScore(){
+		return birdScore;
+	}
 	
 	void Update () {
         if (birdScore < 10 ) birdKill.text = ("00"+birdScore.ToString());

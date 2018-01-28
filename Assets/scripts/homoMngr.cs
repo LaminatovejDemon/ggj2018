@@ -45,6 +45,12 @@ public class homoMngr : baseMngr<homoMngr> {
 	}
 
 	public void Attack(BirdScrp target){
+
+		//HACK, get used to it
+		if (_homoInstance == null) {
+			return;	
+		}
+
 		int from_ = Random.Range (0, _homoInstance.Count);
 
 		for (int i = 0; i < _homoInstance.Count; ++i) {

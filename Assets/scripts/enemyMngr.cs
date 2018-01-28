@@ -59,6 +59,13 @@ public class enemyMngr : baseMngr<enemyMngr>
 		}    
 	}
 
+	public void recalculateBirds()
+	{
+		for (int i = 0; i < enemyList.Count; ++i) {
+			(enemyList[i] as BirdScrp).transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * (((i+0.5f)* shoutMngr.instance.GetViewPortSegmentSize()))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
+		}
+	}
+
 	public void removeBird(BirdScrp source) {
 		enemyList.Remove(source.key);
 		source.key = -1;

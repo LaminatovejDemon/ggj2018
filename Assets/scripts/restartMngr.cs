@@ -10,6 +10,9 @@ public class restartMngr : baseMngr<restartMngr> {
 		Destroy (homoMngr.instance._container);
 		homoMngr.instance.Drop ();
 
+		shoutMngr.instance.SetSegmentCount (2);
+		Camera.main.GetComponent<main> ().scoreMngr.ResetScore ();
+
 		tutorialMngr.instance.Initialise ();
 	}
 }

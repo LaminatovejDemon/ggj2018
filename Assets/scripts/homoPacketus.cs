@@ -75,6 +75,7 @@ public class homoPacketus : MonoBehaviour {
 				if (Random.value < _suicideRatio) {
 					GetComponent<Animator> ().SetTrigger ("suicide");
 					_state = state.Dead;
+					Camera.main.GetComponent<main> ().scoreMngr.homoScore++;
 					_spearTemplate.SetActive (true);
 				} else {
 					GetComponent<Animator> ().SetTrigger ("miss");
@@ -95,6 +96,7 @@ public class homoPacketus : MonoBehaviour {
 			return;
 		}
 		_state = state.Dead;
+		Camera.main.GetComponent<main> ().scoreMngr.homoScore++;
 		GetComponent<Animator>().SetTrigger("victim");
 	}
 
