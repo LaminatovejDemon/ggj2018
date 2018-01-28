@@ -11,6 +11,7 @@ public class main : MonoBehaviour {
 
 	void Start(){
 		Restart ();
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 	}
 
 	public void Restart(){

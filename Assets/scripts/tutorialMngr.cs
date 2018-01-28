@@ -64,9 +64,9 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 	}
 
 	void UpdateGame(){
-		if (Input.GetMouseButtonDown (0)) {
+		/*if (Input.GetMouseButtonDown (0)) {
 			shoutMngr.instance.TriggerHit ();
-		}
+		}*/
 
 		if (Camera.main.GetComponent<main> ().scoreMngr.GetScore () > 0 && shoutMngr.instance._segmentCount == 2) {
 			if (_howtoInstance != null) {

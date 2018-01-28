@@ -46,7 +46,7 @@ public class FadeInOutDie : MonoBehaviour {
 			_color.a = 0;
 			_text.color = _color;
 
-			GameObject.Destroy (this);
+			GameObject.Destroy (this.gameObject);
 		}
 	}
 }
