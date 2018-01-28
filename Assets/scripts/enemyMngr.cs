@@ -10,6 +10,7 @@ public class enemyMngr : baseMngr<enemyMngr>
     int enemyOnScreen = 0;
     bool[] freeSeg = new bool[10];
     int targetSeg;
+    int maxNoSeg;
 
 	void Initialise(){
 		if (enemyList != null) {
@@ -27,22 +28,25 @@ public class enemyMngr : baseMngr<enemyMngr>
     public void create()
     {
 		Initialise ();
+        maxNoSeg = shoutMngr.instance._segmentCount -2;
         targetSeg = -1;
         if (enemyOnScreen < 9)
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < maxNoSeg; i++)
             {
                 if (enemyList[i] == null)
                 {
 					enemyList[i] = GameObject.Instantiate(enemyTemplate).GetComponent<BirdScrp>();
 					enemyList [i].transform.parent = Camera.main.transform;
-                    for (int a = 0; a < 10000; ++a)
+                    int temp = Random.Range(0, maxNoSeg+1);
+                    for (int a = 0; a < maxNoSeg; ++a)
                     {
-                        targetSeg = Random.Range(1, 9);
-                        if (freeSeg[targetSeg]) {
-                            enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * ((0.05f)+(targetSeg*0.1f))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
-                            freeSeg[targetSeg] = false;
-                            enemyList[i].segmentID = targetSeg;
+                        int id = (a + temp) % maxNoSeg;
+                        if (freeSeg[id]) {
+                            enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * ((0.05f)+(id* shoutMngr.instance.GetViewPortSegmentSize()))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
+                            freeSeg[id] = false;
+                            enemyList[i].segmentID = id;
+                            enemyList[i].arrayListID = i;
                             return;
                         }
                     }
@@ -54,7 +58,11 @@ public class enemyMngr : baseMngr<enemyMngr>
             }
         }
     }
-
+    public void removeBird(int listID, int segmentID) {
+        enemyList[listID] = null;
+        freeSeg[segmentID] = true;
+        enemyOnScreen--;
+    }
 	public BirdScrp TestEnemy(float startpoint, float endPoint) {
 		Initialise ();
 

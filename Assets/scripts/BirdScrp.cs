@@ -17,6 +17,7 @@ public class BirdScrp : MonoBehaviour {
     int difComplete;
     public GameObject _claw;
     public int segmentID;
+    public int arrayListID;
 
 	void Start () {
         animator = GetComponent<Animator>();
@@ -48,13 +49,23 @@ public class BirdScrp : MonoBehaviour {
 
         }
     }
+    public void OnAttackFinished()
+    {
+        homoMngr.instance.VictimIsGone(victim);
+    }
 
 	public void Die(){
         animator.SetTrigger("die");
-		Debug.Log ("bird is dying");
+		//Debug.Log ("bird is dying");
         transform.parent = null;
-		//TODO
-	}
+        removeFromList();
+        Destroy(gameObject, 15);
+        
+
+    }
+    void removeFromList() {
+        enemyMngr.instance.removeBird(arrayListID,segmentID);
+    }
 
     void decrease() {
         if (animator.speed > speedDrift)

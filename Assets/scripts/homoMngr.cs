@@ -92,4 +92,9 @@ public class homoMngr : baseMngr<homoMngr> {
 	void Update(){
 //		AssignCameraLink ();
 	}
+
+    public void VictimIsGone(homoPacketus victim)
+    {
+
+    }
 }
