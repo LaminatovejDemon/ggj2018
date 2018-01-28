@@ -95,7 +95,7 @@ public class lineMngr : baseMngr<lineMngr> {
         {
             frameLine = 0;
             completeNo++;
-            Debug.Log("" + completeNo);
+            //Debug.Log("" + completeNo);
         }
 		DecayColors ();
 

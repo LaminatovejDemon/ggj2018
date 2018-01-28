@@ -52,6 +52,7 @@ public class BirdScrp : MonoBehaviour {
     public void OnAttackFinished()
     {
         homoMngr.instance.VictimIsGone(victim);
+        Destroy(gameObject);
     }
 
 	public void Die(){
@@ -59,7 +60,7 @@ public class BirdScrp : MonoBehaviour {
 		//Debug.Log ("bird is dying");
         transform.parent = null;
         removeFromList();
-        Destroy(gameObject, 15);
+        
         
 
     }
@@ -131,7 +132,7 @@ public class BirdScrp : MonoBehaviour {
 		if (timeStartedAttack + 0.5f < Time.time) {
             //victim.transform.parent = _claw.transform;
 			victim.transform.position = (victim.transform.position - victim._heel.transform.position) + _claw.transform.position;
-            
+            removeFromList();
             victim.Die();
             Debug.Log("holding");
         }
@@ -161,7 +162,7 @@ public class BirdScrp : MonoBehaviour {
         swap();
         completeNo = lineMngr.instance.completeNo;
         //Debug.Log("starting" + startingCompleteLineNo + "    new" + completeNo);
-        if (startingCompleteLineNo+1 <= completeNo)
+        if (startingCompleteLineNo+2 <= completeNo)
         {
             if (!grabVictim)
             {
