@@ -87,6 +87,9 @@ public class shoutMngr : baseMngr<shoutMngr> {
 			_activeIndex = 0;
 			return;
 		}
+		if (newIndex >= _segment.Length) {
+			newIndex = 0;
+		}
 
 		_segment [_activeIndex].transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_TintColor", _inactiveColor);
 
