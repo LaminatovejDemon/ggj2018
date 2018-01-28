@@ -5,6 +5,8 @@ using UnityEngine;
 public class tutorialMngr : baseMngr<tutorialMngr> {
 
 	public TextMesh _text;
+	public GameObject _howto;
+
 	float _startTime;
 
 	float _titleStart = 1.0f;
@@ -54,6 +56,8 @@ public class tutorialMngr : baseMngr<tutorialMngr> {
 		homoMngr.instance.Initialise ();
 		enemyMngr.instance.Initialise ();
 		enemyMngr.instance.PrepareEnemy (1, 2);
+
+		GameObject.Instantiate (_howto).transform.parent = Camera.main.transform;
 	}
 
 	void UpdateGame(){
