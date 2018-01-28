@@ -53,10 +53,10 @@ public class enemyMngr : baseMngr<enemyMngr>
 			}
 		}
 
-		if (enemyList.Count < shoutMngr.instance._segmentCount - (maxNoSeg*2) -1 )
+		if (enemyList.Count < shoutMngr.instance._segmentCount - (maxNoSeg*2) )
         {
-			int temp = prefferedSlot == -1 ? Random.Range(0, maxNoSeg+1) : prefferedSlot;
-			for (int a = maxNoSeg; a < shoutMngr.instance._segmentCount - (2 * maxNoSeg); a++)
+			int temp = prefferedSlot == -1 ? Random.Range(maxNoSeg, shoutMngr.instance._segmentCount - maxNoSeg +1) : prefferedSlot;
+			for (int a = maxNoSeg; a < shoutMngr.instance._segmentCount - maxNoSeg; a++)
             {
 				int id = (a + temp) % shoutMngr.instance._segmentCount - maxNoSeg;
 				if (id < maxNoSeg) {
@@ -66,8 +66,9 @@ public class enemyMngr : baseMngr<enemyMngr>
 				if (!enemyList.Contains(id)) {
 					enemyList[id] = GameObject.Instantiate(enemyTemplate).GetComponent<BirdScrp>();
 					(enemyList[id] as BirdScrp).transform.parent = _container.transform;
-					(enemyList[id] as BirdScrp).transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * (((id+0.5f)* shoutMngr.instance.GetViewPortSegmentSize()))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
+					(enemyList[id] as BirdScrp).transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * (((id+0.5f)* shoutMngr.instance.GetViewPortSegmentSize()))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -13);
 					(enemyList[id] as BirdScrp).key = id;
+                    
 					return;
                 }
 			}
@@ -78,7 +79,7 @@ public class enemyMngr : baseMngr<enemyMngr>
 	{
 		for (int i = 0; i < enemyList.Count; ++i) {
 			if (enemyList [i] != null) {
-				(enemyList [i] as BirdScrp).transform.position = new Vector3 (Camera.main.ViewportToWorldPoint (Vector3.right * (((i + 0.5f) * shoutMngr.instance.GetViewPortSegmentSize ()))).x, Camera.main.ViewportToWorldPoint (Vector3.one * 0.9f).y, -10);
+				(enemyList [i] as BirdScrp).transform.position = new Vector3 (Camera.main.ViewportToWorldPoint (Vector3.right * (((i + 0.5f) * shoutMngr.instance.GetViewPortSegmentSize ()))).x, Camera.main.ViewportToWorldPoint (Vector3.one * 0.9f).y, -13);
 			}
 		}
 	}
@@ -104,7 +105,8 @@ public class enemyMngr : baseMngr<enemyMngr>
     }
 
 	public void PrepareEnemy(int number, int prefererSlot = -1){
-		for (int i = 0; i < number; i++) { 
+		for (int i = 0; i < number; i++) {
+            //Debug.Log("prepare bird");
 			create(prefererSlot); 
 		}
 	}
@@ -130,6 +132,7 @@ public class enemyMngr : baseMngr<enemyMngr>
             int number = Random.Range(1, 4);
 			_semiWaveAddition = (number == 2 && Random.value < 0.5f);
 			PrepareEnemy (number);
+            Debug.Log("" + number);
         }
         //Debug.Log("" + enemyOnScreen);
     }
