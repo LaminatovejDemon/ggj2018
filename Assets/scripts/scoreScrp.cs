@@ -10,8 +10,9 @@ public class scoreScrp : MonoBehaviour {
     public int birdScore = 0;
     public int homoScore = 0;
 	void Start () {
-		
-	}
+        birdKill.text = "";
+        homoKill.text = "";
+    }
 
 	public void ResetScore(){
 		birdScore = 0;
@@ -23,6 +24,7 @@ public class scoreScrp : MonoBehaviour {
 	}
 	
 	void Update () {
+        /*
         if (birdScore < 10 ) birdKill.text = ("00"+birdScore.ToString());
         else if (birdScore < 100) birdKill.text = ("0" + birdScore.ToString());
         else birdKill.text = birdScore.ToString();
@@ -30,6 +32,7 @@ public class scoreScrp : MonoBehaviour {
         if (homoScore < 10) homoKill.text = ("00" + homoScore.ToString());
         else if (homoScore < 100) homoKill.text = ("0" + homoScore.ToString());
         else homoKill.text = homoScore.ToString();
+        */
         
-	}
+    }
 }
