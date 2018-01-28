@@ -19,7 +19,9 @@ public class homoPacketus : MonoBehaviour {
 	float _lowerBound = 0.4f;
 	float _upperBound = 0.6f;
 	public GameObject _spearTemplate;
-	GameObject _spear;
+    public GameObject _heel;
+
+    GameObject _spear;
 	BirdScrp _target;
 	bool _throwPull = false;
 
