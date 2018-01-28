@@ -54,13 +54,12 @@ public class homoPacketus : MonoBehaviour {
 
 	void ResetTriggers(){
 		GetComponent<Animator> ().ResetTrigger ("throw");
-		GetComponent<Animator> ().ResetTrigger ("suicide");
-		GetComponent<Animator> ().ResetTrigger ("miss");
-		GetComponent<Animator> ().ResetTrigger ("attack");
 		GetComponent<Animator> ().ResetTrigger ("idle");
 		GetComponent<Animator> ().ResetTrigger ("rush");
 		GetComponent<Animator> ().ResetTrigger ("walk");
+		GetComponent<Animator> ().ResetTrigger ("suicide");
 		GetComponent<Animator> ().ResetTrigger ("victim");
+		GetComponent<Animator> ().ResetTrigger ("miss");
 	}
 
 	public void Attack(BirdScrp target){
