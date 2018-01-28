@@ -70,7 +70,11 @@ public class homoPacketus : MonoBehaviour {
 	}
 
 	public void Die(){
+		if (_state == state.Dead) {
+			return;
+		}
 		_state = state.Dead;
+		GetComponent<Animator>().SetTrigger("victim");
 	}
 
 	public void OnThrowPull(){
