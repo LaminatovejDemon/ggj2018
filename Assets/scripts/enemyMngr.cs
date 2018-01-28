@@ -37,11 +37,11 @@ public class enemyMngr : baseMngr<enemyMngr>
                 if (enemyList[i] == null)
                 {
 					enemyList[i] = GameObject.Instantiate(enemyTemplate).GetComponent<BirdScrp>();
-					enemyList [i].transform.parent = Camera.main.transform;
+					enemyList[i].transform.parent = Camera.main.transform;
                     int temp = Random.Range(0, maxNoSeg+1);
-                    for (int a = 0; a < maxNoSeg; ++a)
+                    for (int a = 1; a < maxNoSeg+1; ++a)
                     {
-                        int id = (a + temp) % maxNoSeg;
+                        int id = (a + temp) % maxNoSeg+1;
                         if (freeSeg[id]) {
                             enemyList[i].transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector3.right * ((0.05f)+(id* shoutMngr.instance.GetViewPortSegmentSize()))).x, Camera.main.ViewportToWorldPoint(Vector3.one * 0.9f).y, -10);
                             freeSeg[id] = false;
@@ -80,6 +80,7 @@ public class enemyMngr : baseMngr<enemyMngr>
 
     void Update()
     {
+        Debug.Log("" + enemyOnScreen);
         for (int i = 0; i < 10; ++i)
         {
             if (enemyList[i] != null)
