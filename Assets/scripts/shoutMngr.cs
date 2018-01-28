@@ -18,6 +18,8 @@ public class shoutMngr : baseMngr<shoutMngr> {
 	public Color _inactiveColor;
 	public Color _hotColor;
 
+
+
 	float _segmentSize = 0;
 
 	int _activeIndex = 0;
@@ -25,6 +27,7 @@ public class shoutMngr : baseMngr<shoutMngr> {
 	void Start(){
 		Initialise ();
 	}
+
 
 	public float GetViewPortSegmentSize(){
 		Initialise ();

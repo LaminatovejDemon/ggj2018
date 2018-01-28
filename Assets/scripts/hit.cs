@@ -24,7 +24,7 @@ public class hit : MonoBehaviour {
 
 	void Test(){
 		float start_ = Camera.main.WorldToViewportPoint (transform.position).x;
-		BirdScrp target_ = enemyMngr.instance.TestEnemy (start_, start_ + transform.localScale.x * Camera.main.orthographicSize * Camera.main.aspect * 2);
+		BirdScrp target_ = enemyMngr.instance.TestEnemy (start_, start_ + shoutMngr.instance.GetViewPortSegmentSize());
 		if (target_ == null) {
 			flashbackImminent = true;
 			homoMngr.instance.Attack (null);

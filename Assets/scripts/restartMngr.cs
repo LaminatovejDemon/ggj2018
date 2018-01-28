@@ -5,9 +5,11 @@ using UnityEngine;
 public class restartMngr : baseMngr<restartMngr> {
 
 	public void Wipe(){
+		Destroy (enemyMngr.instance._container);
 		enemyMngr.instance.Drop ();
 		Destroy (homoMngr.instance._container);
 		homoMngr.instance.Drop ();
-		homoMngr.instance.Initialise ();
+
+		tutorialMngr.instance.Initialise ();
 	}
 }
